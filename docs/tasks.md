@@ -45,15 +45,15 @@ Derived from `docs/blog-implementation-plan.md`, `docs/blog-design-doc.md`, and 
 
 ---
 
-## Task 4: Home page customization
+## Task 4: Home page customization ✅
 
-**Status:** Not started
+**Status:** Complete
 
-- [ ] Replace "Mingalaba" hero in `src/pages/index.astro` with 2–3 line personal intro
-- [ ] Remove Socials component from hero area
-- [ ] Remove "Featured Posts" section
-- [ ] Keep "Recent Posts" section, increase `postPerIndex` to 8 in config
-- [ ] Verify Card component displays: title (linked), date + reading time, description
+- [x] Replace "Mingalaba" hero in `src/pages/index.astro` with 2–3 line personal intro
+- [x] Remove Socials component from hero area
+- [x] Remove "Featured Posts" section
+- [x] Keep "Recent Posts" section, increase `postPerIndex` to 8 in config
+- [x] Verify Card component displays: title (linked), date + reading time, description
 
 ---
 
