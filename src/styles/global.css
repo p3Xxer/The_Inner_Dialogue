@@ -5,7 +5,7 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fafafa;
+  --background: #efefef;
   --foreground: #171717;
   --accent: #2563eb;
   --muted: #f5f5f5;
@@ -13,7 +13,7 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-  --background: #0a0a0a;
+  --background: #252525;
   --foreground: #e5e5e5;
   --accent: #60a5fa;
   --muted: #171717;
@@ -21,7 +21,7 @@ html[data-theme="dark"] {
 }
 
 @theme inline {
-  --font-app: 'Jost', sans-serif;
+  --font-app: 'iA Writer Mono', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
