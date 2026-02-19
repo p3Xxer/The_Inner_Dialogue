@@ -11,6 +11,15 @@
     h4,
     th {
       @apply mb-3 text-foreground;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    h1 {
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      letter-spacing: -0.01em;
     }
 
     h3 {
@@ -75,7 +84,7 @@
     }
 
     blockquote {
-      @apply border-s-accent/80 wrap-break-word opacity-80;
+      @apply border-s-accent/80 wrap-break-word opacity-80 italic;
     }
 
     details {
