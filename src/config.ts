@@ -1,7 +1,7 @@
 export const SITE = {
-  website: "https://theinnerdialogue.com/", // TODO: replace with your deployed domain
-  author: "Your Name", // TODO: replace with your name
-  profile: "", // TODO: replace with your personal site URL, or leave empty
+  website: "https://khushilkataria.com/",
+  author: "Khushil Kataria",
+  profile: "",
   desc: "A personal blog about writing, tools, and thinking more clearly.",
   title: "The Inner Dialogue",
   ogImage: "og.png",
@@ -19,5 +19,5 @@ export const SITE = {
   dynamicOgImage: true,
   dir: "ltr",
   lang: "en",
-  timezone: "UTC", // TODO: set your local timezone (IANA format)
+  timezone: "Asia/Kolkata",
 } as const;
