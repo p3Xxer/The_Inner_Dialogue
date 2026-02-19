@@ -75,15 +75,15 @@ Derived from `docs/blog-implementation-plan.md`, `docs/blog-design-doc.md`, and 
 
 ---
 
-## Task 6: About page
+## Task 6: About page ✅
 
-**Status:** Not started
+**Status:** Complete
 
-- [ ] Edit `src/pages/about.md` with placeholder content:
+- [x] Edit `src/pages/about.md` with placeholder content:
   - Who you are (2–3 sentences)
   - What you write about
   - How to reach you
-- [ ] Verify it renders correctly in both dark and light mode
+- [x] Verify it renders correctly in both dark and light mode (uses `app-prose` + `AboutLayout.astro` — same styling pipeline as posts)
 
 ---
 

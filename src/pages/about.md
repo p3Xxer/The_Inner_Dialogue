@@ -3,35 +3,16 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+I'm a developer and occasional writer based on the internet. I spend most of my time building things with code, reading widely, and trying to think more clearly about the things that interest me.
 
-![Astro Paper](public/astropaper-og.jpg)
+This blog is called *The Inner Dialogue* because that's what it is — a place to work through ideas in public. Not a newsletter, not a portfolio, just writing.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+## What I write about
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+The posts here cover whatever I'm genuinely thinking about: tools and workflows, ideas from books I've been reading, things I've changed my mind about, and the occasional technical deep-dive. There's no strict theme. The through-line is that I only write about things I've had some direct experience with.
 
-## Features
+## Get in touch
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+The best way to reach me is by email: **hello@example.com**
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
-
-and so much more.
-
-## Show your support
-
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+I read everything but I'm slow to reply. If you're writing about something I've posted, I'm more likely to respond quickly.
