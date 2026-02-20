@@ -32,9 +32,9 @@
 
 ## Phase 4: Utility Functions
 
-- [ ] Create `src/utils/getSortedBooks.ts` — fetches library collection, sorts by `dateRead` descending
-- [ ] Create `src/utils/getUniqueGenres.ts` — extracts and deduplicates genres across all books, slugifies them (same pattern as `getUniqueTags`)
-- [ ] Create `src/utils/getBooksByGenre.ts` — filters books matching a genre slug
+- [x] Create `src/utils/getSortedBooks.ts` — fetches library collection, sorts by `dateRead` descending
+- [x] Create `src/utils/getUniqueGenres.ts` — extracts and deduplicates genres across all books, slugifies them (same pattern as `getUniqueTags`)
+- [x] Create `src/utils/getBooksByGenre.ts` — filters books matching a genre slug
 
 ## Phase 5: BookCard Component
 
@@ -86,7 +86,7 @@
 ## Implementation Order
 
 1. [x] Content collection schema (Phase 2)
-2. [ ] Utility functions (Phase 4)
+2. [x] Utility functions (Phase 4)
 3. [ ] BookCard component + listing page (Phases 5–6, listing only)
 4. [ ] Navigation update (Phase 7)
 5. [ ] Individual book page + BookDetails layout (Phase 6, detail page)
