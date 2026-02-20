@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * add-book.ts — Add a book to the library via Google Books ISBN lookup.
  *
@@ -125,7 +126,7 @@ if (coverUrl) {
     console.error(`Failed to download cover image: ${imgRes.status}`);
     process.exit(1);
   }
-  writeFileSync(imgPath, Buffer.from(await imgRes.arrayBuffer()));
+  writeFileSync(imgPath, new Uint8Array(await imgRes.arrayBuffer()));
   console.log(`Cover saved → ${imgPath}`);
 } else {
   if (!existsSync(PLACEHOLDER)) {
