@@ -21,14 +21,14 @@
 
 ## Phase 3: CLI Script — `add-book`
 
-- [ ] Create `scripts/add-book.ts` that:
-  - [ ] Takes ISBN as CLI argument
-  - [ ] Calls Google Books API: `https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key={key}`
-  - [ ] Extracts `title`, `authors`, `categories`, `imageLinks` from `volumeInfo`
-  - [ ] Downloads best available cover image (`large` → `medium` → `thumbnail`) to `src/assets/images/library/{slugified-title}.jpg`
-  - [ ] Generates `src/data/library/{slugified-title}.md` with frontmatter and placeholder body (`<!-- Add your notes here -->`)
-  - [ ] Handles edge cases: no cover image (copies placeholder), no categories (defaults to `["Uncategorized"]`), duplicate file names
-- [ ] Add `"add-book": "npx tsx scripts/add-book.ts"` to `package.json` scripts
+- [x] Create `scripts/add-book.ts` that:
+  - [x] Takes ISBN as CLI argument
+  - [x] Calls Google Books API: `https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key={key}`
+  - [x] Extracts `title`, `authors`, `categories`, `imageLinks` from `volumeInfo`
+  - [x] Downloads best available cover image (`large` → `medium` → `thumbnail`) to `src/assets/images/library/{slugified-title}.jpg`
+  - [x] Generates `src/data/library/{slugified-title}.md` with frontmatter and placeholder body (`<!-- Add your notes here -->`)
+  - [x] Handles edge cases: no cover image (copies placeholder), no categories (defaults to `["Uncategorized"]`), duplicate file names
+- [x] Add `"add-book": "npx tsx scripts/add-book.ts"` to `package.json` scripts
 
 ## Phase 4: Utility Functions
 
@@ -90,7 +90,7 @@
 3. [x] BookCard component + listing page (Phases 5–6, listing only)
 4. [x] Navigation update (Phase 7)
 5. [x] Individual book page + BookDetails layout (Phase 6, detail page)
-6. [ ] Genre filtering client-side JS (Phase 8)
-7. [ ] CLI script (Phase 3)
+6. [x] Genre filtering client-side JS (Phase 8)
+7. [x] CLI script (Phase 3)
 8. [x] Generalize Pagination component types (Phase 9)
 9. [ ] Configuration & setup (Phase 1)
