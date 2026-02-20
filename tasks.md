@@ -65,10 +65,10 @@
 
 ## Phase 7: Navigation
 
-- [ ] Add `Library` nav item in `Header.astro`:
-  - [ ] New `<li>` with `href="/library"` and `isActive("/library")`
-  - [ ] Positioned between Blog and About
-  - [ ] Same styling as existing nav items
+- [x] Add `Library` nav item in `Header.astro`:
+  - [x] New `<li>` with `href="/library"` and `isActive("/library")`
+  - [x] Positioned between Blog and About
+  - [x] Same styling as existing nav items
 
 ## Phase 8: UX Details
 
@@ -88,7 +88,7 @@
 1. [x] Content collection schema (Phase 2)
 2. [x] Utility functions (Phase 4)
 3. [x] BookCard component + listing page (Phases 5–6, listing only)
-4. [ ] Navigation update (Phase 7)
+4. [x] Navigation update (Phase 7)
 5. [ ] Individual book page + BookDetails layout (Phase 6, detail page)
 6. [ ] Genre filtering client-side JS (Phase 8)
 7. [ ] CLI script (Phase 3)
