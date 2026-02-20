@@ -8,6 +8,7 @@ export const SITE = {
   lightAndDarkMode: true,
   postPerIndex: 8,
   postPerPage: 4,
+  booksPerPage: 12,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   showArchives: false,
   showBackButton: true,

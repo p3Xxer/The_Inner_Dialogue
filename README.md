@@ -51,18 +51,18 @@ Blog posts live in `src/data/blog/` as Markdown files. Subdirectories become par
 
 ## Tech Stack
 
-| Layer | Tool |
-|---|---|
-| Framework | [Astro 5](https://astro.build/) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
-| Search | [Pagefind](https://pagefind.app/) |
-| OG Images | [Satori](https://github.com/vercel/satori) + [resvg](https://github.com/RazrFalcon/resvg) |
-| Code Highlighting | [Shiki](https://shiki.style/) |
-| Icons | [Tabler Icons](https://tabler-icons.io/) |
-| Formatting | [Prettier](https://prettier.io/) |
-| Linting | [ESLint](https://eslint.org/) |
-| Deployment | [Cloudflare Pages](https://pages.cloudflare.com/) |
+| Layer             | Tool                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| Framework         | [Astro 5](https://astro.build/)                                                           |
+| Language          | [TypeScript](https://www.typescriptlang.org/)                                             |
+| Styling           | [Tailwind CSS 4](https://tailwindcss.com/)                                                |
+| Search            | [Pagefind](https://pagefind.app/)                                                         |
+| OG Images         | [Satori](https://github.com/vercel/satori) + [resvg](https://github.com/RazrFalcon/resvg) |
+| Code Highlighting | [Shiki](https://shiki.style/)                                                             |
+| Icons             | [Tabler Icons](https://tabler-icons.io/)                                                  |
+| Formatting        | [Prettier](https://prettier.io/)                                                          |
+| Linting           | [ESLint](https://eslint.org/)                                                             |
+| Deployment        | [Cloudflare Pages](https://pages.cloudflare.com/)                                         |
 
 ## Running Locally
 
@@ -80,16 +80,16 @@ pnpm run dev
 
 All commands are run from the project root:
 
-| Command | Action |
-| :--- | :--- |
-| `pnpm install` | Install dependencies |
-| `pnpm run dev` | Start dev server at `localhost:4321` |
-| `pnpm run build` | Type-check → build → generate Pagefind index |
-| `pnpm run preview` | Preview production build locally |
-| `pnpm run format` | Format with Prettier |
-| `pnpm run format:check` | Check formatting |
-| `pnpm run lint` | Lint with ESLint |
-| `pnpm run sync` | Generate Astro TypeScript types |
+| Command                 | Action                                       |
+| :---------------------- | :------------------------------------------- |
+| `pnpm install`          | Install dependencies                         |
+| `pnpm run dev`          | Start dev server at `localhost:4321`         |
+| `pnpm run build`        | Type-check → build → generate Pagefind index |
+| `pnpm run preview`      | Preview production build locally             |
+| `pnpm run format`       | Format with Prettier                         |
+| `pnpm run format:check` | Check formatting                             |
+| `pnpm run lint`         | Lint with ESLint                             |
+| `pnpm run sync`         | Generate Astro TypeScript types              |
 
 ## Configuration
 

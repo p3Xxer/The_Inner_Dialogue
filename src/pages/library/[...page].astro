@@ -1,0 +1,82 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BookCard from "@/components/BookCard.astro";
+import Pagination from "@/components/Pagination.astro";
+import getSortedBooks from "@/utils/getSortedBooks";
+import getUniqueGenres from "@/utils/getUniqueGenres";
+import { SITE } from "@/config";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const books = await getCollection("library");
+  return paginate(getSortedBooks(books), { pageSize: SITE.booksPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const allBooks = await getCollection("library");
+const genres = getUniqueGenres(allBooks);
+---
+
+<Layout title={`Library | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Library" pageDesc="Books I've read.">
+    <div class="mb-6 flex flex-wrap gap-2">
+      <button
+        class="genre-filter rounded-full border border-foreground/30 px-3 py-1 text-sm transition-colors data-[active]:border-accent data-[active]:text-accent"
+        data-genre="all"
+        data-active=""
+      >
+        All
+      </button>
+      {
+        genres.map(({ genre, genreName }) => (
+          <button
+            class="genre-filter rounded-full border border-foreground/30 px-3 py-1 text-sm transition-colors data-[active]:border-accent data-[active]:text-accent"
+            data-genre={genre}
+          >
+            {genreName}
+          </button>
+        ))
+      }
+    </div>
+
+    <ul id="book-list" class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      {page.data.map(book => <BookCard {...book} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const filterBtns =
+      document.querySelectorAll<HTMLButtonElement>(".genre-filter");
+    const bookList = document.querySelector<HTMLUListElement>("#book-list");
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const selected = btn.dataset.genre!;
+        filterBtns.forEach(b => delete b.dataset.active);
+        btn.dataset.active = "";
+
+        bookList
+          ?.querySelectorAll<HTMLLIElement>("li[data-genre]")
+          .forEach(card => {
+            if (selected === "all") {
+              card.hidden = false;
+            } else {
+              const cardGenres = card.dataset.genre!.split(",");
+              card.hidden = !cardGenres.includes(selected);
+            }
+          });
+      });
+    });
+  });
+</script>

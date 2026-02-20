@@ -5,7 +5,7 @@ title: "About"
 
 I'm a developer and occasional writer based on the internet. I spend most of my time building things with code, reading widely, and trying to think more clearly about the things that interest me.
 
-This blog is called *The Inner Dialogue* because that's what it is — a place to work through ideas in public. Not a newsletter, not a portfolio, just writing.
+This blog is called _The Inner Dialogue_ because that's what it is — a place to work through ideas in public. Not a newsletter, not a portfolio, just writing.
 
 ## What I write about
 
