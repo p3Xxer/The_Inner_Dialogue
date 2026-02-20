@@ -38,23 +38,23 @@
 
 ## Phase 5: BookCard Component
 
-- [ ] Create `src/components/BookCard.astro` with:
-  - [ ] Astro `<Image />` for the cover (optimized, lazy-loaded)
-  - [ ] Title linking to individual book page
-  - [ ] Book author display
-  - [ ] Genre pill/badge(s) (same styling as tag badges on blog posts)
-  - [ ] Date read display
-  - [ ] Horizontal card layout on desktop (cover left, info right), stacked on mobile
-  - [ ] `data-genre` attribute on each card for client-side filtering
+- [x] Create `src/components/BookCard.astro` with:
+  - [x] Astro `<Image />` for the cover (optimized, lazy-loaded)
+  - [x] Title linking to individual book page
+  - [x] Book author display
+  - [x] Genre pill/badge(s) (same styling as tag badges on blog posts)
+  - [x] Date read display
+  - [x] Horizontal card layout on desktop (cover left, info right), stacked on mobile
+  - [x] `data-genre` attribute on each card for client-side filtering
 
 ## Phase 6: Pages
 
-- [ ] Create `src/pages/library/[...page].astro` — main listing page:
-  - [ ] Fetches library collection, sorts by `dateRead`, paginates using `booksPerPage`
-  - [ ] Renders `BookCard` grid (2 columns desktop, 1 column mobile)
-  - [ ] Genre filter pills at the top ("All" + each genre)
-  - [ ] Client-side JS to toggle card visibility by `data-genre` attribute
-  - [ ] Uses existing `Pagination` component
+- [x] Create `src/pages/library/[...page].astro` — main listing page:
+  - [x] Fetches library collection, sorts by `dateRead`, paginates using `booksPerPage`
+  - [x] Renders `BookCard` grid (2 columns desktop, 1 column mobile)
+  - [x] Genre filter pills at the top ("All" + each genre)
+  - [x] Client-side JS to toggle card visibility by `data-genre` attribute
+  - [x] Uses existing `Pagination` component
 - [ ] Create `src/pages/library/[...slug]/index.astro` — individual book page:
   - [ ] Shows large cover image, title, author, genre pills, date read
   - [ ] Renders markdown body (notes) below a horizontal rule
@@ -72,14 +72,14 @@
 
 ## Phase 8: UX Details
 
-- [ ] Genre filter pills: "All" selected by default, active pill gets accent styling
-- [ ] BookCard: fixed-height cover image with `object-cover`, subtle shadow/border, hover effect
+- [x] Genre filter pills: "All" selected by default, active pill gets accent styling
+- [x] BookCard: fixed-height cover image with `object-cover`, subtle shadow/border, hover effect
 - [ ] Book details page: large cover image, metadata block, horizontal rule, notes below
-- [ ] Responsive: 2-column grid on desktop/tablet, 1-column on mobile
+- [x] Responsive: 2-column grid on desktop/tablet, 1-column on mobile
 
 ## Phase 9: Generalize Pagination Component
 
-- [ ] Update `Pagination` component types to accept `CollectionEntry<"library">` in addition to `CollectionEntry<"blog">`
+- [x] Update `Pagination` component types to accept `CollectionEntry<"library">` in addition to `CollectionEntry<"blog">`
 
 ---
 
@@ -87,10 +87,10 @@
 
 1. [x] Content collection schema (Phase 2)
 2. [x] Utility functions (Phase 4)
-3. [ ] BookCard component + listing page (Phases 5–6, listing only)
+3. [x] BookCard component + listing page (Phases 5–6, listing only)
 4. [ ] Navigation update (Phase 7)
 5. [ ] Individual book page + BookDetails layout (Phase 6, detail page)
 6. [ ] Genre filtering client-side JS (Phase 8)
 7. [ ] CLI script (Phase 3)
-8. [ ] Generalize Pagination component types (Phase 9)
+8. [x] Generalize Pagination component types (Phase 9)
 9. [ ] Configuration & setup (Phase 1)

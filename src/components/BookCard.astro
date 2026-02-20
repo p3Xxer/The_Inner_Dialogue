@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { slugifyAll } from "@/utils/slugify";
+
+type Props = CollectionEntry<"library">;
+
+const { id, data } = Astro.props;
+const { title, bookAuthor, genre, coverImage, dateRead } = data;
+
+const dateStr = dateRead.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+});
+---
+
+<li
+  class="my-4 flex gap-4 rounded-lg border border-foreground/10 p-4 transition-colors hover:border-accent/40"
+  data-genre={slugifyAll(genre).join(",")}
+>
+  <a href={`/library/${id}/`} class="shrink-0">
+    <Image
+      src={coverImage}
+      alt={`Cover of ${title}`}
+      width={96}
+      height={144}
+      class="h-36 w-24 rounded object-cover shadow"
+      loading="lazy"
+    />
+  </a>
+  <div class="flex flex-col gap-1">
+    <a
+      href={`/library/${id}/`}
+      class="text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+    >
+      {title}
+    </a>
+    <p class="text-sm opacity-80">{bookAuthor}</p>
+    <ul class="mt-1 flex flex-wrap gap-1.5">
+      {
+        genre.map(g => (
+          <li class="rounded-full border border-foreground/30 px-2.5 py-0.5 text-xs opacity-80">
+            {g}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-auto text-xs opacity-60">{dateStr}</p>
+  </div>
+</li>
