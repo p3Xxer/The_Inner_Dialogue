@@ -3,6 +3,7 @@ import { glob } from "astro/loaders";
 import { SITE } from "@/config";
 
 export const BLOG_PATH = "src/data/blog";
+export const LIBRARY_PATH = "src/data/library";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
@@ -23,4 +24,17 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const library = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${LIBRARY_PATH}` }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      bookAuthor: z.string(),
+      genre: z.array(z.string()).default(["Uncategorized"]),
+      coverImage: image(),
+      dateRead: z.date(),
+      isbn: z.string().optional(),
+    }),
+});
+
+export const collections = { blog, library };

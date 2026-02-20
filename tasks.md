@@ -4,20 +4,20 @@
 
 - [ ] Create a Google Books API key in Google Cloud Console and enable the Books API
 - [ ] Add `GOOGLE_BOOKS_API_KEY` to `.env` (gitignored, local-only — not needed at build time)
-- [ ] Add `booksPerPage` to the `SITE` object in `src/config.ts`
-- [ ] Create directory `src/data/library/`
-- [ ] Create directory `src/assets/images/library/`
+- [x] Add `booksPerPage` to the `SITE` object in `src/config.ts`
+- [x] Create directory `src/data/library/`
+- [x] Create directory `src/assets/images/library/`
 
 ## Phase 2: Content Collection Schema
 
-- [ ] Add a `library` collection in `src/content.config.ts` with fields:
+- [x] Add a `library` collection in `src/content.config.ts` with fields:
   - `title` — string (from Google)
   - `bookAuthor` — string (from Google, joined if multiple authors)
   - `genre` — string array (from Google's `categories`)
   - `coverImage` — image (local file, downloaded by CLI)
   - `dateRead` — date (filled in manually)
   - `isbn` — string (kept for reference)
-- [ ] Export `library` collection alongside `blog`: `collections = { blog, library }`
+- [x] Export `library` collection alongside `blog`: `collections = { blog, library }`
 
 ## Phase 3: CLI Script — `add-book`
 
@@ -85,7 +85,7 @@
 
 ## Implementation Order
 
-1. [ ] Content collection schema (Phase 2)
+1. [x] Content collection schema (Phase 2)
 2. [ ] Utility functions (Phase 4)
 3. [ ] BookCard component + listing page (Phases 5–6, listing only)
 4. [ ] Navigation update (Phase 7)
