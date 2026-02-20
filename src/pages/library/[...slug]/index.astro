@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BookDetails from "@/layouts/BookDetails.astro";
+
+export const getStaticPaths = (async () => {
+  const books = await getCollection("library");
+  return books.map(book => ({
+    params: { slug: book.id },
+    props: { book },
+  }));
+}) satisfies GetStaticPaths;
+
+const { book } = Astro.props;
+---
+
+<BookDetails {book} />

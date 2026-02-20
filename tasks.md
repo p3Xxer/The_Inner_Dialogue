@@ -55,12 +55,12 @@
   - [x] Genre filter pills at the top ("All" + each genre)
   - [x] Client-side JS to toggle card visibility by `data-genre` attribute
   - [x] Uses existing `Pagination` component
-- [ ] Create `src/pages/library/[...slug]/index.astro` — individual book page:
-  - [ ] Shows large cover image, title, author, genre pills, date read
-  - [ ] Renders markdown body (notes) below a horizontal rule
-  - [ ] Back button to `/library`
-  - [ ] Uses new `BookDetails.astro` layout
-- [ ] Create `src/components/BookDetails.astro` layout (similar to `PostDetails.astro`, no prev/next, no share links)
+- [x] Create `src/pages/library/[...slug]/index.astro` — individual book page:
+  - [x] Shows large cover image, title, author, genre pills, date read
+  - [x] Renders markdown body (notes) below a horizontal rule
+  - [x] Back button to `/library`
+  - [x] Uses new `BookDetails.astro` layout
+- [x] Create `src/layouts/BookDetails.astro` layout (similar to `PostDetails.astro`, no prev/next, no share links)
 - [ ] *(Optional)* Create `src/pages/library/genres/index.astro` — lists all genres with book counts
 
 ## Phase 7: Navigation
@@ -74,7 +74,7 @@
 
 - [x] Genre filter pills: "All" selected by default, active pill gets accent styling
 - [x] BookCard: fixed-height cover image with `object-cover`, subtle shadow/border, hover effect
-- [ ] Book details page: large cover image, metadata block, horizontal rule, notes below
+- [x] Book details page: large cover image, metadata block, horizontal rule, notes below
 - [x] Responsive: 2-column grid on desktop/tablet, 1-column on mobile
 
 ## Phase 9: Generalize Pagination Component
@@ -89,7 +89,7 @@
 2. [x] Utility functions (Phase 4)
 3. [x] BookCard component + listing page (Phases 5–6, listing only)
 4. [x] Navigation update (Phase 7)
-5. [ ] Individual book page + BookDetails layout (Phase 6, detail page)
+5. [x] Individual book page + BookDetails layout (Phase 6, detail page)
 6. [ ] Genre filtering client-side JS (Phase 8)
 7. [ ] CLI script (Phase 3)
 8. [x] Generalize Pagination component types (Phase 9)
