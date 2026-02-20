@@ -1,18 +1,24 @@
 ---
 import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
+import { getPath } from "@/utils/getPath";
 import { SITE } from "@/config";
 
-const posts = await getCollection("blog");
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
+const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
-const recentPosts = sortedPosts;
+const groupedPosts = getPostsByGroupCondition(sortedPosts, post =>
+  dayjs(post.data.pubDatetime).tz(SITE.timezone).format("YYYY MMMM")
+);
 ---
 
 <Layout>
@@ -28,26 +34,36 @@ const recentPosts = sortedPosts;
       </p>
     </section>
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
-
-    <div class="my-8 text-center">
-      <LinkButton href="/blog/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    <section id="all-posts" class="pt-8 pb-6">
+      {
+        Object.entries(groupedPosts).map(([group, groupPosts]) => (
+          <div class="mb-10">
+            <h2 class="mb-3 text-lg font-medium opacity-70">{group}</h2>
+            <ul>
+              {groupPosts.map(post => {
+                const date = dayjs(post.data.pubDatetime).tz(SITE.timezone);
+                return (
+                  <li class="flex items-center justify-between py-2.5">
+                    <a
+                      href={getPath(post.id, post.filePath)}
+                      class="text-accent decoration-dashed underline-offset-4 hover:underline"
+                    >
+                      {post.data.title}
+                    </a>
+                    <time
+                      datetime={date.toISOString()}
+                      class="ml-6 shrink-0 text-sm opacity-60"
+                    >
+                      {date.format("D MMM, YYYY")}
+                    </time>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
   </main>
   <Footer />
 </Layout>
