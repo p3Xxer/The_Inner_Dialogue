@@ -11,7 +11,7 @@
  */
 
 import { readFileSync, readdirSync, unlinkSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
 import { slugifyStr } from "../src/utils/slugify.ts";
 
 const ROOT = process.cwd();
@@ -55,7 +55,7 @@ for (const file of mdFiles) {
     const coverMatch = frontmatter.match(/coverImage:\s*["'](.+?)["']/);
     if (coverMatch) {
       const relPath = coverMatch[1];
-      coverImagePath = join(ROOT, "src", relPath.replace(/^\//, ""));
+      coverImagePath = join(dirname(filePath), relPath);
     }
     break;
   }
