@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "add-book": "npx tsx scripts/add-book.ts"
+    "add-book": "npx tsx scripts/add-book.ts",
+    "remove-book": "npx tsx scripts/remove-book.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
