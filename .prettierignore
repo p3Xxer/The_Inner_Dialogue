@@ -4,6 +4,8 @@
 # Except these files & folders
 !/src
 !/public
+# Exclude generated Pagefind build artifacts
+/public/pagefind
 !/.github
 !tsconfig.json
 !astro.config.ts

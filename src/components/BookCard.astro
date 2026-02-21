@@ -15,36 +15,27 @@ const dateStr = dateRead.toLocaleDateString("en-US", {
 ---
 
 <li
-  class="my-4 flex gap-4 rounded-lg border border-foreground/10 p-4 transition-colors hover:border-accent/40"
+  class="overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated transition-colors hover:border-accent-primary-muted hover:bg-bg-hover"
   data-genre={slugifyAll(genre).join(",")}
 >
-  <a href={`/library/${id}/`} class="shrink-0">
-    <Image
-      src={coverImage}
-      alt={`Cover of ${title}`}
-      width={96}
-      height={144}
-      class="h-36 w-24 rounded object-cover shadow"
-      loading="lazy"
-    />
+  <a href={`/library/${id}/`} class="flex h-full flex-col">
+    <div class="overflow-hidden">
+      <Image
+        src={coverImage}
+        alt={`Cover of ${title}`}
+        width={240}
+        height={360}
+        class="w-full object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div class="flex flex-1 flex-col gap-2 p-4">
+      <h2 class="leading-snug font-medium text-white">{title}</h2>
+      <p class="text-sm text-text-secondary">{bookAuthor}</p>
+      <ul class="flex flex-wrap gap-x-2 gap-y-1">
+        {genre.map(g => <li class="text-xs text-accent-primary">{g}</li>)}
+      </ul>
+      <p class="mt-auto pt-1 text-xs text-text-muted">{dateStr}</p>
+    </div>
   </a>
-  <div class="flex flex-col gap-1">
-    <a
-      href={`/library/${id}/`}
-      class="text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
-    >
-      {title}
-    </a>
-    <p class="text-sm opacity-80">{bookAuthor}</p>
-    <ul class="mt-1 flex flex-wrap gap-1.5">
-      {
-        genre.map(g => (
-          <li class="rounded-full border border-foreground/30 px-2.5 py-0.5 text-xs opacity-80">
-            {g}
-          </li>
-        ))
-      }
-    </ul>
-    <p class="mt-auto text-xs opacity-60">{dateStr}</p>
-  </div>
 </li>

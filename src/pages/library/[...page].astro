@@ -23,10 +23,10 @@ const genres = getUniqueGenres(allBooks);
 
 <Layout title={`Library | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Library" pageDesc="Books I've read.">
+  <Main pageTitle="Library" pageDesc="Books I've read." wide>
     <div class="mb-6 flex flex-wrap gap-2">
       <button
-        class="genre-filter rounded-full border border-foreground/30 px-3 py-1 text-sm transition-colors data-[active]:border-accent data-[active]:text-accent"
+        class="genre-filter rounded-full border border-border-subtle px-3 py-1 text-sm transition-colors data-[active]:border-accent-primary data-[active]:text-accent-primary"
         data-genre="all"
         data-active=""
       >
@@ -35,7 +35,7 @@ const genres = getUniqueGenres(allBooks);
       {
         genres.map(({ genre, genreName }) => (
           <button
-            class="genre-filter rounded-full border border-foreground/30 px-3 py-1 text-sm transition-colors data-[active]:border-accent data-[active]:text-accent"
+            class="genre-filter rounded-full border border-border-subtle px-3 py-1 text-sm transition-colors data-[active]:border-accent-primary data-[active]:text-accent-primary"
             data-genre={genre}
           >
             {genreName}
@@ -44,7 +44,10 @@ const genres = getUniqueGenres(allBooks);
       }
     </div>
 
-    <ul id="book-list" class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+    <ul
+      id="book-list"
+      class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+    >
       {page.data.map(book => <BookCard {...book} />)}
     </ul>
   </Main>

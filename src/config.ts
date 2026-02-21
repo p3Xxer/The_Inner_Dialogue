@@ -5,7 +5,7 @@ export const SITE = {
   desc: "A personal blog about writing, tools, and thinking more clearly.",
   title: "The Inner Dialogue",
   ogImage: "og.png",
-  lightAndDarkMode: true,
+  lightAndDarkMode: false,
   postPerIndex: 8,
   postPerPage: 4,
   booksPerPage: 12,

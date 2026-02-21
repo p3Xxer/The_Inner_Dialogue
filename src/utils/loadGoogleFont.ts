@@ -1,62 +1,43 @@
-async function loadGoogleFont(
-  font: string,
-  text: string,
-  weight: number
-): Promise<ArrayBuffer> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=${encodeURIComponent(text)}`;
+import { readFileSync } from "fs";
+import { join } from "path";
 
-  const css = await (
-    await fetch(API, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1",
-      },
-    })
-  ).text();
-
-  const resource = css.match(
-    /src: url\((.+?)\) format\('(opentype|truetype)'\)/
+// iA Writer Mono is loaded from the local @fontsource package rather than fetching
+// from the Google Fonts API at build time. This keeps fonts consistent with the site's
+// design system and avoids a network dependency during OG image generation.
+// Option A chosen: load .woff buffers from @fontsource/ia-writer-mono package.
+// Note: Satori supports WOFF and TTF/OTF but NOT WOFF2 — using .woff files here.
+function loadLocalFont(weight: 400 | 700): ArrayBuffer {
+  const filename = `ia-writer-mono-latin-${weight}-normal.woff`;
+  const fontPath = join(
+    process.cwd(),
+    "node_modules/@fontsource/ia-writer-mono/files",
+    filename
   );
-
-  if (!resource) throw new Error("Failed to download dynamic font");
-
-  const res = await fetch(resource[1]);
-
-  if (!res.ok) {
-    throw new Error("Failed to download dynamic font. Status: " + res.status);
-  }
-
-  return res.arrayBuffer();
+  const buffer = readFileSync(fontPath);
+  // Convert Node Buffer to ArrayBuffer (Buffer shares underlying memory, so slice to isolate)
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength
+  ) as ArrayBuffer;
 }
 
-async function loadGoogleFonts(
-  text: string
-): Promise<
+async function loadFonts(): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
-  const fontsConfig = [
+  return [
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono",
+      name: "iA Writer Mono",
+      data: loadLocalFont(400),
       weight: 400,
       style: "normal",
     },
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono",
+      name: "iA Writer Mono",
+      data: loadLocalFont(700),
       weight: 700,
-      style: "bold",
+      style: "normal",
     },
   ];
-
-  const fonts = await Promise.all(
-    fontsConfig.map(async ({ name, font, weight, style }) => {
-      const data = await loadGoogleFont(font, text, weight);
-      return { name, data, weight, style };
-    })
-  );
-
-  return fonts;
 }
 
-export default loadGoogleFonts;
+export default loadFonts;

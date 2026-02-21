@@ -1,6 +1,7 @@
 import satori from "satori";
 import { SITE } from "@/config";
-import loadGoogleFonts from "../loadGoogleFont";
+import { colors } from "@/theme";
+import loadFonts from "../loadGoogleFont";
 
 export default async () => {
   return satori(
@@ -8,111 +9,112 @@ export default async () => {
       type: "div",
       props: {
         style: {
-          background: "#fefbfb",
+          background: colors.bgRoot,
           width: "100%",
           height: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "iA Writer Mono",
         },
         children: [
           {
             type: "div",
             props: {
               style: {
-                position: "absolute",
-                top: "-1px",
-                right: "-1px",
-                border: "4px solid #000",
-                background: "#ecebeb",
-                opacity: "0.9",
-                borderRadius: "4px",
+                border: `1px solid ${colors.borderSubtle}`,
+                background: colors.bgElevated,
+                borderRadius: "8px",
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "column",
                 margin: "2.5rem",
                 width: "88%",
                 height: "80%",
+                overflow: "hidden",
               },
-            },
-          },
-          {
-            type: "div",
-            props: {
-              style: {
-                border: "4px solid #000",
-                background: "#fefbfb",
-                borderRadius: "4px",
-                display: "flex",
-                justifyContent: "center",
-                margin: "2rem",
-                width: "88%",
-                height: "80%",
-              },
-              children: {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    margin: "20px",
-                    width: "90%",
-                    height: "90%",
+              children: [
+                // Accent bar at top
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      width: "100%",
+                      height: "4px",
+                      background: colors.accentPrimary,
+                    },
                   },
-                  children: [
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          height: "90%",
-                          maxHeight: "90%",
-                          overflow: "hidden",
-                          textAlign: "center",
-                        },
-                        children: [
-                          {
-                            type: "p",
-                            props: {
-                              style: { fontSize: 72, fontWeight: "bold" },
-                              children: SITE.title,
-                            },
-                          },
-                          {
-                            type: "p",
-                            props: {
-                              style: { fontSize: 28 },
-                              children: SITE.desc,
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      type: "div",
-                      props: {
-                        style: {
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          width: "100%",
-                          marginBottom: "8px",
-                          fontSize: 28,
-                        },
-                        children: {
-                          type: "span",
-                          props: {
-                            style: { overflow: "hidden", fontWeight: "bold" },
-                            children: new URL(SITE.website).hostname,
-                          },
-                        },
-                      },
-                    },
-                  ],
                 },
-              },
+                // Content area
+                {
+                  type: "div",
+                  props: {
+                    style: {
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "2.5rem 3rem",
+                      flex: "1",
+                      textAlign: "center",
+                    },
+                    children: [
+                      // Site title + description
+                      {
+                        type: "div",
+                        props: {
+                          style: {
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: "1rem",
+                          },
+                          children: [
+                            {
+                              type: "p",
+                              props: {
+                                style: {
+                                  fontSize: 72,
+                                  fontWeight: "bold",
+                                  color: colors.headingHero,
+                                  margin: 0,
+                                  lineHeight: 1.2,
+                                },
+                                children: SITE.title,
+                              },
+                            },
+                            {
+                              type: "p",
+                              props: {
+                                style: {
+                                  fontSize: 28,
+                                  color: colors.textSecondary,
+                                  margin: 0,
+                                  maxWidth: "80%",
+                                  overflow: "hidden",
+                                },
+                                children: SITE.desc,
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      // Domain
+                      {
+                        type: "span",
+                        props: {
+                          style: {
+                            fontSize: 24,
+                            fontWeight: "bold",
+                            color: colors.accentPrimary,
+                            overflow: "hidden",
+                          },
+                          children: new URL(SITE.website).hostname,
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
             },
           },
         ],
@@ -122,7 +124,7 @@ export default async () => {
       width: 1200,
       height: 630,
       embedFont: true,
-      fonts: await loadGoogleFonts(SITE.title + SITE.desc + SITE.website),
+      fonts: await loadFonts(),
     }
   );
 };
