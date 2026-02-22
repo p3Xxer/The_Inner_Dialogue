@@ -102,6 +102,82 @@
       font-style: italic;
     }
 
+    /* ----- Inline text enrichment ----- */
+    mark {
+      background-color: var(--accent-primary-muted);
+      color: var(--accent-primary-hover);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    u {
+      text-decoration: underline dashed;
+      text-decoration-color: var(--accent-primary);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    s {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    del {
+      color: var(--accent-secondary);
+      text-decoration: line-through;
+      text-decoration-color: var(--accent-secondary);
+    }
+
+    ins {
+      color: var(--accent-tertiary);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-tertiary);
+      text-underline-offset: 3px;
+      font-style: normal;
+    }
+
+    sup {
+      color: var(--accent-primary);
+      font-size: 0.75em;
+      line-height: 0;
+      vertical-align: super;
+    }
+
+    sub {
+      color: var(--text-secondary);
+      font-size: 0.75em;
+      line-height: 0;
+      vertical-align: sub;
+    }
+
+    kbd {
+      font-family: inherit;
+      font-size: 0.85em;
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-bottom-width: 2px;
+      color: var(--text-secondary);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    abbr[title] {
+      text-decoration: underline dotted;
+      text-decoration-color: var(--text-muted);
+      text-underline-offset: 3px;
+      cursor: help;
+    }
+
+    cite {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    small {
+      font-size: 0.85em;
+      color: var(--text-muted);
+    }
+
     /* ----- Lists ----- */
     ul,
     ol {
@@ -268,6 +344,70 @@
       outline: 2px dashed var(--accent-primary);
       outline-offset: 1px;
       text-decoration: none;
+    }
+
+    /* ----- Callout boxes ----- */
+    aside.callout-note,
+    aside.callout-warning,
+    aside.callout-tip {
+      border-left: 3px solid;
+      background-color: var(--bg-elevated);
+      padding: 0.85rem 1rem;
+      margin: 2rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    aside.callout-note {
+      border-left-color: var(--accent-primary-muted);
+    }
+
+    aside.callout-warning {
+      border-left-color: var(--accent-secondary);
+    }
+
+    aside.callout-tip {
+      border-left-color: var(--accent-tertiary);
+    }
+
+    aside.callout-note p,
+    aside.callout-warning p,
+    aside.callout-tip p {
+      margin-bottom: 0;
+    }
+
+    /* ----- Pull quote ----- */
+    blockquote.pull-quote {
+      border-left: none;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1.5rem 0;
+      margin: 3rem auto;
+      max-width: 85%;
+      text-align: center;
+      color: var(--heading);
+      font-size: 1.3rem;
+      font-style: normal;
+    }
+
+    blockquote.pull-quote > p {
+      margin-bottom: 0;
+    }
+
+    /* ----- Footnotes ----- */
+    .footnotes {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .footnotes ol {
+      margin-bottom: 0;
+    }
+
+    .footnotes li {
+      margin-bottom: 0.5rem;
     }
 
     /* inner <code> inside .astro-code preserves code block bg */
