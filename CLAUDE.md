@@ -33,7 +33,7 @@ pnpm remove-book <slug>   # Remove markdown + cover image
 - Library: `/library/` (grid with client-side genre filter), `/library/[slug]/` (book detail)
 - Tags: `/tags/[tag]/[...page]/`
 
-**Configuration:** Site settings in `src/config.ts` (SITE object, including `booksPerPage: 12`). Social links and share buttons in `src/constants.ts`.
+**Configuration:** Site settings in `src/config.ts` (SITE object). Social links and share buttons in `src/constants.ts`.
 
 **Design system** (`src/theme.ts` — single source of truth):
 - `colors` — all hex values. Never hardcode colors elsewhere; always reference from here.
