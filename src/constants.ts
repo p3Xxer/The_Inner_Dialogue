@@ -1,4 +1,5 @@
 import type { Props } from "astro";
+import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
@@ -13,7 +14,14 @@ interface Social {
   icon: (_props: Props) => Element;
 }
 
-export const SOCIALS: Social[] = [] as const;
+export const SOCIALS: Social[] = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/khushil-kataria-549aab221/",
+    linkTitle: "Connect on LinkedIn",
+    icon: IconLinkedin,
+  },
+] as const;
 
 export const SHARE_LINKS: Social[] = [
   {

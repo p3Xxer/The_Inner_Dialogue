@@ -11,8 +11,10 @@ This blog is called _The Inner Dialogue_ because that's what it is — a place t
 
 The posts here cover whatever I'm genuinely thinking about: tools and workflows, ideas from books I've been reading, things I've changed my mind about, and the occasional technical deep-dive. There's no strict theme. The through-line is that I only write about things I've had some direct experience with.
 
+I also keep a [Library](/library) — a running list of books I've read, with notes on the ones worth remembering.
+
 ## Get in touch
 
-The best way to reach me is by email: **hello@example.com**
+The best way to reach me is by email: **katariakhushil7587@gmail.com**
 
 I read everything but I'm slow to reply. If you're writing about something I've posted, I'm more likely to respond quickly.

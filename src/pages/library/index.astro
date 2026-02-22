@@ -54,22 +54,41 @@ const genres = getUniqueGenres(allBooks);
       document.querySelectorAll<HTMLButtonElement>(".genre-filter");
     const bookList = document.querySelector<HTMLUListElement>("#book-list");
 
+    function applyFilter(selected: string) {
+      filterBtns.forEach(b => delete b.dataset.active);
+      const activeBtn =
+        [...filterBtns].find(b => b.dataset.genre === selected) ?? filterBtns[0];
+      activeBtn.dataset.active = "";
+
+      bookList
+        ?.querySelectorAll<HTMLLIElement>("li[data-genre]")
+        .forEach(card => {
+          if (selected === "all") {
+            card.hidden = false;
+          } else {
+            const cardGenres = card.dataset.genre!.split(",");
+            card.hidden = !cardGenres.includes(selected);
+          }
+        });
+    }
+
+    // Apply filter from URL on load
+    const params = new URLSearchParams(window.location.search);
+    applyFilter(params.get("genre") ?? "all");
+
     filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         const selected = btn.dataset.genre!;
-        filterBtns.forEach(b => delete b.dataset.active);
-        btn.dataset.active = "";
+        applyFilter(selected);
 
-        bookList
-          ?.querySelectorAll<HTMLLIElement>("li[data-genre]")
-          .forEach(card => {
-            if (selected === "all") {
-              card.hidden = false;
-            } else {
-              const cardGenres = card.dataset.genre!.split(",");
-              card.hidden = !cardGenres.includes(selected);
-            }
-          });
+        // Sync URL without page reload
+        const url = new URL(window.location.href);
+        if (selected === "all") {
+          url.searchParams.delete("genre");
+        } else {
+          url.searchParams.set("genre", selected);
+        }
+        history.replaceState({}, "", url.toString());
       });
     });
   });

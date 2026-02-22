@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AstroPaper v5.5.1 blog — an Astro-based static site with Tailwind CSS 4, TypeScript, and Pagefind search. Uses pnpm as package manager (v10.11.1). Requires Node 20+.
+AstroPaper v5.5.1 blog — an Astro-based static site with Tailwind CSS 4, TypeScript, and Pagefind search. Uses pnpm as package manager (v10.11.1). Requires Node 20+. Dark-only (`lightAndDarkMode: false` in `src/config.ts`).
 
 ## Commands
 
@@ -16,23 +16,36 @@ pnpm run format           # Format with Prettier
 pnpm run format:check     # Check formatting
 pnpm run lint             # ESLint
 pnpm run sync             # Generate Astro TypeScript types
+
+# Library management (requires GOOGLE_BOOKS_API_KEY in .env)
+pnpm add-book <isbn>      # Fetch from Google Books, download cover, create src/data/library/<slug>.md
+pnpm remove-book <slug>   # Remove markdown + cover image
 ```
 
 ## Architecture
 
-**Content:** Blog posts live in `src/data/blog/` as Markdown files. Subdirectories become part of the URL path unless prefixed with `_` (e.g., `_releases/` is excluded from URLs). Frontmatter requires `title`, `pubDatetime`, and `description`.
+**Content collections** (defined in `src/content.config.ts`):
+- `blog` — posts at `src/data/blog/`. Required frontmatter: `title`, `pubDatetime`, `description`. Supports `tags`, `draft`, `featured`, `ogImage`.
+- `library` — books at `src/data/library/`. Required frontmatter: `title`, `bookAuthor`, `genre` (array), `coverImage`, `dateRead`. Optional: `isbn`. Cover images stored in `src/assets/images/library/`.
 
-**Routing:** File-based via `src/pages/`. Post pages at `posts/[slug]`, tags at `tags/[tag]/[page]`, paginated list at `posts/[page]`.
+**Routing** (file-based via `src/pages/`):
+- Blog: `/blog/[...slug]/` (post detail), `/blog/[...page]/` (paginated list)
+- Library: `/library/` (grid with client-side genre filter), `/library/[slug]/` (book detail)
+- Tags: `/tags/[tag]/[...page]/`
 
-**Configuration:** Site settings in `src/config.ts` (SITE object). Social links and share buttons in `src/constants.ts`. Content collection schema in `src/content.config.ts`.
+**Configuration:** Site settings in `src/config.ts` (SITE object, including `booksPerPage: 12`). Social links and share buttons in `src/constants.ts`.
 
-**Styling:** Tailwind CSS 4 with CSS custom properties in `src/styles/global.css`. Typography prose styles in `src/styles/typography.css`. Font is Jost. Max content width controlled by `max-w-app` utility (42rem).
+**Design system** (`src/theme.ts` — single source of truth):
+- `colors` — all hex values. Never hardcode colors elsewhere; always reference from here.
+- `cssVars` — maps CSS var names to colors. `Layout.astro` generates `:root { ... }` by iterating this at build time.
+- `typography` — `blogMaxWidth` (42.5rem), `libraryMaxWidth` (68.75rem).
+- Tailwind utilities consume the CSS vars via `@theme inline` in `src/styles/global.css`.
 
-**Theme:** Dark/light mode via `src/scripts/theme.ts`. CSS variables switch between modes. Dark is default.
+**Styling:** Tailwind CSS 4 with CSS custom properties. Typography prose styles (hand-rolled `.app-prose`) in `src/styles/typography.css`. Font is iA Writer Mono (loaded via `@fontsource` in `Layout.astro`).
 
-**OG Images:** Dynamically generated using Satori + resvg. Templates in `src/utils/og-templates/`. Google font loaded for OG images via `src/utils/loadGoogleFont.ts`.
+**OG Images:** Generated with Satori + resvg. Templates in `src/utils/og-templates/`. Font loaded from `@fontsource` `.woff` files via `src/utils/loadGoogleFont.ts` — Satori does not support WOFF2.
 
-**Code Highlighting:** Shiki with night-owl (dark) and min-light (light) themes. Custom transformers in `src/utils/transformers/`.
+**Code highlighting:** Shiki with single `vitesse-dark` theme. Custom transformers in `src/utils/transformers/` (filename display, diff notation, highlights).
 
 **Path alias:** `@/*` maps to `./src/*`.
 
@@ -41,5 +54,7 @@ pnpm run sync             # Generate Astro TypeScript types
 - Posts with `draft: true` are excluded from production builds
 - Scheduled posts (future `pubDatetime`) have a 15-minute visibility margin
 - Tags are slugified and deduplicated via `src/utils/slugify.ts`
-- Post filtering logic is in `src/utils/postFilter.ts`; sorting in `src/utils/getSortedPosts.ts`
+- Post filtering in `src/utils/postFilter.ts`; sorting in `src/utils/getSortedPosts.ts`
+- Library books sorted by `dateRead` descending (`src/utils/getSortedBooks.ts`)
+- Subdirectories prefixed with `_` (e.g., `_releases/`) are excluded from URLs by the glob loader
 - CI runs lint, format check, and build on PRs (`.github/workflows/ci.yml`)
