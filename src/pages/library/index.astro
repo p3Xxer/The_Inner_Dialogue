@@ -1,23 +1,16 @@
 ---
-import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import BookCard from "@/components/BookCard.astro";
-import Pagination from "@/components/Pagination.astro";
 import getSortedBooks from "@/utils/getSortedBooks";
 import getUniqueGenres from "@/utils/getUniqueGenres";
 import { SITE } from "@/config";
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const books = await getCollection("library");
-  return paginate(getSortedBooks(books), { pageSize: SITE.booksPerPage });
-}) satisfies GetStaticPaths;
-
-const { page } = Astro.props;
 const allBooks = await getCollection("library");
+const books = getSortedBooks(allBooks);
 const genres = getUniqueGenres(allBooks);
 ---
 
@@ -48,13 +41,11 @@ const genres = getUniqueGenres(allBooks);
       id="book-list"
       class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
     >
-      {page.data.map(book => <BookCard {...book} />)}
+      {books.map(book => <BookCard {...book} />)}
     </ul>
   </Main>
 
-  <Pagination {page} />
-
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer />
 </Layout>
 
 <script>
