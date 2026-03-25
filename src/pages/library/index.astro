@@ -9,7 +9,7 @@ import getSortedBooks from "@/utils/getSortedBooks";
 import getUniqueGenres from "@/utils/getUniqueGenres";
 import { SITE } from "@/config";
 
-const allBooks = await getCollection("library", ({ data }) => import.meta.env.DEV || !data.draft);
+const allBooks = await getCollection("library");
 const books = getSortedBooks(allBooks);
 const genres = getUniqueGenres(allBooks);
 ---
