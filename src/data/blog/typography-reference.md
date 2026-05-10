@@ -165,7 +165,7 @@ These work out of the box with standard markdown syntax.
 
 ### Bold and Italic
 
-**Bold text** is weight 700 in the primary text colour. *Italic text* is simply font-style italic. They can be **combined *together*** if needed.
+**Bold text** is weight 700 in the primary text colour. _Italic text_ is simply font-style italic. They can be **combined _together_** if needed.
 
 ### Inline Code
 
@@ -178,7 +178,7 @@ export const SITE = {
   title: "The Inner Dialogue",
   author: "Khushil Kataria",
   timezone: "Asia/Kolkata", // [!code highlight]
-  lightAndDarkMode: false,  // [!code ++]
+  lightAndDarkMode: false, // [!code ++]
 };
 ```
 
@@ -200,15 +200,16 @@ Ordered:
 
 ### Table
 
-| Element | Syntax | Use case |
-|---|---|---|
-| Highlight | `<mark>` | Key ideas, annotations |
-| Keyboard | `<kbd>` | Shortcuts, key combos |
-| Citation | `<cite>` | Book and article titles |
+| Element   | Syntax   | Use case                |
+| --------- | -------- | ----------------------- |
+| Highlight | `<mark>` | Key ideas, annotations  |
+| Keyboard  | `<kbd>`  | Shortcuts, key combos   |
+| Citation  | `<cite>` | Book and article titles |
 
 ### Image with Caption
 
 ![A placeholder image](../../assets/images/library/deep-work.jpg)
+
 <figcaption>Caption text goes here — rendered in muted small text, centred.</figcaption>
 
 ### Horizontal Rule
@@ -220,6 +221,6 @@ Ordered:
 <details>
   <summary>Click to expand</summary>
 
-  Hidden content lives here. Useful for long asides, tangents, or supplementary material that breaks the main flow.
+Hidden content lives here. Useful for long asides, tangents, or supplementary material that breaks the main flow.
 
 </details>

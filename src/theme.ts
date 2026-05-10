@@ -79,4 +79,3 @@ export const typography = {
   blogMaxWidth: "42.5rem", // 680px
   libraryMaxWidth: "68.75rem", // 1100px
 } as const;
-

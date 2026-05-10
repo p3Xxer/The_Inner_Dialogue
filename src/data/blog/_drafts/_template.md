@@ -27,4 +27,4 @@ More content.
 
 ---
 
-*Last thought or closing line.*
+_Last thought or closing line._
