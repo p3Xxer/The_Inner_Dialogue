@@ -11,7 +11,7 @@ import { SITE } from "@/config";
 
 const allBooks = await getCollection("library");
 const books = getSortedBooks(allBooks);
-const genres = getUniqueGenres(allBooks);
+const genres = getUniqueGenres(books);
 ---
 
 <Layout title={`Library | ${SITE.title}`}>

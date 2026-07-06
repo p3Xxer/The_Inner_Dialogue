@@ -34,6 +34,7 @@ const library = defineCollection({
       coverImage: image(),
       dateRead: z.date(),
       isbn: z.string().optional(),
+      draft: z.boolean().optional(),
     }),
 });
 
