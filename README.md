@@ -47,7 +47,9 @@ A personal blog about writing, tools, and thinking more clearly — built on [As
 └── astro.config.ts
 ```
 
-Blog posts live in `src/data/blog/` as Markdown files. Subdirectories become part of the URL path unless prefixed with `_` (excluded from URLs). Frontmatter requires `title`, `pubDatetime`, and `description`.
+Blog posts live in `src/data/blog/` as Markdown files, and library notes live in `src/data/library/`. Subdirectories become part of the URL path unless prefixed with `_` (excluded from URLs). Blog frontmatter requires `title`, `pubDatetime`, and `description`; library frontmatter requires `title`, `bookAuthor`, `genre`, `coverImage`, and `dateRead`. Both collections support `draft: true` to hide an entry from production builds while keeping it visible in dev.
+
+See [`AUTHORING.md`](AUTHORING.md) for a quick reference on creating posts and book entries, and [`how/writing-flow.md`](how/writing-flow.md) for the full authoring workflow — scaffolding new posts, publishing, adding library entries from Google Books, and the `check-content` build guard.
 
 ## Tech Stack
 

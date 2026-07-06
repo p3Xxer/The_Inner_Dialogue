@@ -4,15 +4,45 @@
 
 **1. Start a new draft**
 
-Copy `src/data/blog/_drafts/_template.md`, fill in the frontmatter, start writing. The file stays in `_drafts/` — completely invisible, not processed by Astro.
+```bash
+pnpm new-post "Post Title"
+```
 
-**2. Ready to preview**
+This slugifies the title, creates `src/data/blog/{slug}.md` with `draft: true`
+frontmatter pre-filled (title, `pubDatetime` set to now, a placeholder
+description, `tags: [tag]`, `featured: false`), and drops in the scaffold body
+from `src/data/_templates/blog.md`. Refuses to run if a post already exists at
+that path.
 
-Move the file to `src/data/blog/your-post-slug.md` with `draft: true`. Run `pnpm run dev` and visit `http://localhost:4321/blog/your-post-slug/` to see it rendered. It will also appear in the feed in dev — that's expected.
+**2. Write**
 
-**3. Ready to publish**
+Fill in the description, replace the placeholder tags, and write the post.
+While `draft: true` is set, the post is visible in `pnpm run dev` (so you can
+preview it at `http://localhost:4321/blog/{slug}/`) but never in production
+builds.
 
-Remove `draft: true` from the frontmatter. It goes live on next build/deploy.
+**3. Publish**
+
+```bash
+pnpm publish-post <slug>
+```
+
+This removes `draft: true` and bumps `pubDatetime` to the current time (pass
+`--keep-date` to keep the original `pubDatetime` instead — useful for
+backdating). Before publishing, it validates that:
+
+- `description` isn't missing, empty, or still the placeholder
+- the body doesn't still contain template artifacts (`Opening paragraph. Set
+  the tone here...`, `*Last thought or closing line.*`, or literal `Body
+  content.` / `More content.` sections)
+- `tags` doesn't still contain the literal placeholder `tag`
+
+If validation fails, it reports every failing check at once and exits without
+touching the file. If the post is still sitting in `src/data/blog/_drafts/`,
+`publish-post` moves it out to `src/data/blog/` automatically before
+validating.
+
+It goes live on the next build/deploy once it passes.
 
 ---
 
@@ -20,7 +50,8 @@ Remove `draft: true` from the frontmatter. It goes live on next build/deploy.
 
 **Option A — Manual**
 
-Copy `src/data/library/_drafts/_template.md`, fill in frontmatter, write your notes. Move to `src/data/library/book-slug.md` when ready.
+Copy `src/data/_templates/library.md`, fill in the frontmatter, write your
+notes, and save it as `src/data/library/book-slug.md`.
 
 **Option B — Use the script**
 
@@ -41,8 +72,16 @@ GOOGLE_BOOKS_API_KEY=your_key_here
 
 ### 3. Run the script
 
+By ISBN:
+
 ```bash
 pnpm add-book <isbn>
+```
+
+Or search by title (uses the first Google Books match):
+
+```bash
+pnpm add-book --title "Book Title"
 ```
 
 Example:
@@ -53,13 +92,25 @@ pnpm add-book 9780743273565
 
 The script will:
 
-- Look up the ISBN on Google Books
+- Look up the book on Google Books (by ISBN or title)
 - Download the best available cover image to `src/assets/images/library/`
-- Create a Markdown file at `src/data/library/{slugified-title}.md`
+- Create a Markdown file at `src/data/library/{slugified-title}.md`, using the
+  body sections from `src/data/_templates/library.md`
+- Mark the entry `draft: true` — new books start hidden from production
+  builds but are visible in `pnpm run dev`, so you can write notes at your own
+  pace before publishing
 
-### 4. Fill in the date
+Pass `--date-read=YYYY-MM-DD` to set `dateRead` directly instead of defaulting
+to today:
 
-Open the generated file and set `dateRead` to the date you finished the book (ISO format `YYYY-MM-DD`):
+```bash
+pnpm add-book 9780743273565 --date-read=2026-01-15
+```
+
+### 4. Fill in the date (if you skipped --date-read)
+
+Open the generated file and set `dateRead` to the date you finished the book
+(ISO format `YYYY-MM-DD`):
 
 ```yaml
 ---
@@ -68,26 +119,51 @@ bookAuthor: "F. Scott Fitzgerald"
 genre:
   - "Fiction"
 coverImage: "../../assets/images/library/the-great-gatsby.jpg"
-dateRead: 2026-01-15   # ← update this
+dateRead: 2026-01-15   # ← update this if you didn't pass --date-read
 isbn: "9780743273565"
+draft: true            # ← remove once notes are written
 ---
-
-<!-- Add your notes here -->
 ```
 
-### 5. Optionally add notes
+### 5. Add notes, then publish
 
-Write your reading notes in the body of the Markdown file below the frontmatter.
+Write your reading notes in the body of the Markdown file, then remove
+`draft: true` from the frontmatter once you're ready for it to appear in
+production.
 
 ### Edge cases
 
 | Situation | Behaviour |
 |---|---|
-| No cover image found | Copies `src/assets/images/library/_placeholder.jpg` — add this file once if you want a fallback |
+| No cover image found | Copies `src/assets/images/library/_placeholder.jpg` |
 | No categories from Google | Defaults to `["Uncategorized"]` |
 | Duplicate title slug | Appends `-2`, `-3`, etc. to avoid overwriting |
 | Missing API key | Exits with a clear error message |
-| ISBN not found | Exits with a clear error message |
+| ISBN or title not found | Exits with a clear error message |
+| Neither ISBN nor `--title` given | Exits with usage instructions |
+
+---
+
+## Checking Content Before Publishing
+
+```bash
+pnpm check-content
+```
+
+A build guard that scans `src/data/blog/` and `src/data/library/` (skipping
+`_`-prefixed files/dirs) and reports:
+
+- **ERROR** — blog filenames that aren't kebab-case
+- **ERROR** — for published blog posts (no `draft: true`): missing/placeholder
+  description, leftover template artifacts, or the literal `tag` placeholder
+  still in `tags`
+- **WARN** — for published library notes: an empty body or one that's still
+  just the `<!-- Add your notes here -->` placeholder (this doesn't fail the
+  build — several existing notes are like this)
+
+Exits 1 if any ERRORs are found, 0 otherwise. `pnpm run build` runs this
+automatically after the type check and before the Astro build, so bad content
+fails CI before it fails in production.
 
 ---
 
@@ -102,11 +178,15 @@ Applies to both blog posts and library notes.
 | No `draft`, past `pubDatetime` | Visible | Visible |
 | No `draft`, future `pubDatetime` | Visible | Hidden until 15min before |
 
+Library notes support `draft: true` the same way blog posts do — new entries
+created by `pnpm add-book` start as drafts so you can write notes over time
+without them showing up in production.
+
 ---
 
 ## Reference
 
-- Blog template: `src/data/blog/_drafts/_template.md`
-- Library template: `src/data/library/_drafts/_template.md`
+- Blog template: `src/data/_templates/blog.md`
+- Library template: `src/data/_templates/library.md`
 - Typography reference post: viewable in dev mode only — navigate to `http://localhost:4321/blog/typography-reference/` to preview all typography elements
 - Typography element docs: `docs/typography-reference.md`

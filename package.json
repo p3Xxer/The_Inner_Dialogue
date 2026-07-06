@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.11.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
+    "build": "astro check && npx tsx scripts/check-content.ts && astro build && pagefind --site dist && cp -r dist/pagefind public/",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
@@ -13,7 +13,10 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "add-book": "npx tsx scripts/add-book.ts",
-    "remove-book": "npx tsx scripts/remove-book.ts"
+    "remove-book": "npx tsx scripts/remove-book.ts",
+    "new-post": "npx tsx scripts/new-post.ts",
+    "publish-post": "npx tsx scripts/publish-post.ts",
+    "check-content": "npx tsx scripts/check-content.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
