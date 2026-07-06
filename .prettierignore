@@ -14,3 +14,5 @@
 !.prettierrc
 !eslint.config.js
 !README.md
+# Obsidian vault config (not site content)
+src/data/.obsidian

@@ -9,6 +9,7 @@ dateRead: 2026-02-22
 
 # OPTIONAL
 # isbn: "9780000000000"
+# draft: true (uncomment to hide from prod while writing notes)
 ---
 
 One or two sentences on first impression — why you picked it up, what you expected.

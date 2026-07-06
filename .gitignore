@@ -9,3 +9,9 @@ build/
 coverage/
 .cache/
 .astro/
+
+# Obsidian volatile window state
+src/data/.obsidian/workspace.json
+
+# Claude Code worktrees
+.claude/worktrees/
