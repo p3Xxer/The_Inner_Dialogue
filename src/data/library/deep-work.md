@@ -6,20 +6,9 @@ genre:
 coverImage: ../../assets/images/library/deep-work.jpg
 dateRead: 2026-02-21
 isbn: "9780349413686"
-draft: true
 ---
 
 This book is divided into two parts. Part One does a very good job at convincing you why deep work is important, and Part Two is about the rules and methods that we can adopt to do deep work.
-<mark>
-Rule of Commas:
-A comma signals to the reader: \*\*\"pause here - a new piece of information is coming.\"\*\*
-
-1. **Joining two independent clauses (compound sentences)** When you join two complete sentences with a coordinating conjunction (for, and, nor, but, or, yet, so — remembered as **FANBOYS**),
-2. **After an introductory word or phrase** You're giving the reader some context _before_ the main idea. The comma says "the setup is done, now here's the real point."
-3. **In a list of three or more items**
-4. **Setting off extra information (non-essential clauses)**
-5. **Direct address** When speaking directly to someone\*\*
-6. **Dates and addresses**
 
 ## Notes
 
