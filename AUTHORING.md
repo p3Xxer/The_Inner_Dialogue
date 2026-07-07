@@ -1,6 +1,6 @@
 # How To: Add Content
 
-Quick reference for creating blog posts and library (book) entries. For edge cases and visibility rules, see [how/writing-flow.md](how/writing-flow.md).
+Quick reference for creating blog posts, library (book) entries, and quotes. For edge cases and visibility rules, see [how/writing-flow.md](how/writing-flow.md).
 
 ## New Blog Post
 
@@ -59,11 +59,32 @@ To remove a book (deletes the markdown file and its cover):
 pnpm remove-book <slug-or-title>
 ```
 
+## New Quote
+
+```bash
+pnpm new-quote "Author Name"
+pnpm new-quote "Author Name" --source "Where it's from"
+```
+
+This creates `src/data/quotes/author-name.md` (repeat authors get `-2`, `-3`, ... suffixes) with:
+
+- `quoteAuthor` and `dateAdded` (today) pre-filled, plus `source` if you passed it
+- `draft: true` — visible in dev, never in prod
+- the placeholder body from `src/data/_templates/quote.md`
+
+Then:
+
+1. Replace the placeholder body with the quote — the Markdown body _is_ the quote.
+2. Preview at `http://localhost:4321/quotes/` (`pnpm run dev`).
+3. Remove the `draft: true` line to publish.
+
+There's no publish script for quotes; there's nothing to validate beyond what `pnpm check-content` catches (a published quote with a placeholder body or author fails the build). Quotes appear on `/quotes/` sorted by `dateAdded`, newest first — no detail pages.
+
 ## Drafts & Visibility
 
 | State                          | Dev     | Prod   |
 | ------------------------------ | ------- | ------ |
-| `draft: true` (blog or book)   | visible | hidden |
+| `draft: true` (blog, book, or quote) | visible | hidden |
 | No draft flag, past `pubDatetime` | visible | visible |
 | Blog post with future `pubDatetime` | visible | hidden until ~15 min before |
 
