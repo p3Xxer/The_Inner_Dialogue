@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import getSortedQuotes from "@/utils/getSortedQuotes";
+import { SITE } from "@/config";
+
+const allQuotes = await getCollection("quotes");
+const quotes = getSortedQuotes(allQuotes);
+const renderedQuotes = await Promise.all(
+  quotes.map(async quote => {
+    const { Content } = await render(quote);
+    return { quote, Content };
+  })
+);
+---
+
+<Layout title={`Quotes | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Quotes" pageDesc="Lines worth keeping.">
+    {
+      renderedQuotes.length === 0 ? (
+        <p class="text-text-muted">Nothing saved yet.</p>
+      ) : (
+        <ul>
+          {renderedQuotes.map(({ quote, Content }) => (
+            <li class="border-b border-border-subtle py-8 first:pt-2 last:border-b-0">
+              <figure>
+                <blockquote class="border-l-[3px] border-accent-primary-muted pl-4 text-accent-secondary italic [&>p]:mb-2 [&>p:last-child]:mb-0">
+                  <Content />
+                </blockquote>
+                <figcaption class="mt-3 pl-4 text-sm text-text-muted">
+                  <span>
+                    {`— ${quote.data.quoteAuthor}${quote.data.source ? "," : ""}`}
+                  </span>
+                  {quote.data.source && <cite>{quote.data.source}</cite>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Main>
+
+  <Footer />
+</Layout>

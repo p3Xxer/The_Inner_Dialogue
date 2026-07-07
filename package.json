@@ -15,6 +15,7 @@
     "add-book": "npx tsx scripts/add-book.ts",
     "remove-book": "npx tsx scripts/remove-book.ts",
     "new-post": "npx tsx scripts/new-post.ts",
+    "new-quote": "npx tsx scripts/new-quote.ts",
     "publish-post": "npx tsx scripts/publish-post.ts",
     "check-content": "npx tsx scripts/check-content.ts"
   },

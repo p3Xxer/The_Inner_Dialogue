@@ -144,19 +144,50 @@ production.
 
 ---
 
+## Quotes
+
+**1. Scaffold a new quote**
+
+```bash
+pnpm new-quote "Author Name"
+pnpm new-quote "Author Name" --source "Where it's from"
+```
+
+This slugifies the author, creates `src/data/quotes/{author-slug}.md` with
+`draft: true` frontmatter pre-filled (`quoteAuthor`, `dateAdded` set to today,
+`source` if passed via `--source`, otherwise left as a commented-out hint), and
+drops in the placeholder body from `src/data/_templates/quote.md`. If quotes
+from that author already exist, the slug gets a `-2`, `-3`, ... suffix.
+
+**2. Write**
+
+Replace the placeholder body with the quote itself — the Markdown body *is*
+the quote. Keep the frontmatter to who said it (`quoteAuthor`) and, optionally,
+where (`source`).
+
+**3. Publish**
+
+Remove `draft: true`. The quote appears on `/quotes/`, sorted by `dateAdded`
+descending, on the next build. Quotes have no detail pages — the `/quotes/`
+page is the whole section.
+
+---
+
 ## Checking Content Before Publishing
 
 ```bash
 pnpm check-content
 ```
 
-A build guard that scans `src/data/blog/` and `src/data/library/` (skipping
-`_`-prefixed files/dirs) and reports:
+A build guard that scans `src/data/blog/`, `src/data/library/`, and
+`src/data/quotes/` (skipping `_`-prefixed files/dirs) and reports:
 
 - **ERROR** — blog filenames that aren't kebab-case
 - **ERROR** — for published blog posts (no `draft: true`): missing/placeholder
   description, leftover template artifacts, or the literal `tag` placeholder
   still in `tags`
+- **ERROR** — for published quotes: an empty body, a body that's still the
+  template placeholder, or a `quoteAuthor` that's still `Author Name`
 - **WARN** — for published library notes: an empty body or one that's still
   just the `<!-- Add your notes here -->` placeholder (this doesn't fail the
   build — several existing notes are like this)
@@ -188,5 +219,6 @@ without them showing up in production.
 
 - Blog template: `src/data/_templates/blog.md`
 - Library template: `src/data/_templates/library.md`
+- Quote template: `src/data/_templates/quote.md`
 - Typography reference post: viewable in dev mode only — navigate to `http://localhost:4321/blog/typography-reference/` to preview all typography elements
 - Typography element docs: `docs/typography-reference.md`

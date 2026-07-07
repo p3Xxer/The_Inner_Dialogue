@@ -15,6 +15,10 @@
  *     - For PUBLISHED books only: WARN (not error) if the body is empty or
  *       just the "Add your notes here" placeholder comment
  *
+ *   Quotes (src/data/quotes/**\/*.md, skipping _-prefixed):
+ *     - For PUBLISHED quotes only: ERROR if the body is empty or still the
+ *       template placeholder, or if quoteAuthor is still the placeholder
+ *
  * Exits 1 if any ERRORs were found, 0 otherwise (warnings don't fail the build).
  */
 
@@ -24,9 +28,12 @@ import { join, relative } from "node:path";
 const ROOT = process.cwd();
 const BLOG_DIR = join(ROOT, "src/data/blog");
 const LIBRARY_DIR = join(ROOT, "src/data/library");
+const QUOTES_DIR = join(ROOT, "src/data/quotes");
 
 const PLACEHOLDER_DESCRIPTION = "A short summary of what this post is about.";
 const NOTES_PLACEHOLDER = "<!-- Add your notes here -->";
+const QUOTE_PLACEHOLDER = "The quote text goes here.";
+const QUOTE_AUTHOR_PLACEHOLDER = "Author Name";
 
 type Issue = { level: "ERROR" | "WARN"; file: string; message: string };
 const issues: Issue[] = [];
@@ -144,13 +151,40 @@ for (const filePath of libraryFiles) {
   }
 }
 
+// ── Quotes checks ──────────────────────────────────────────────────────────────
+
+const quoteFiles = walk(QUOTES_DIR);
+
+for (const filePath of quoteFiles) {
+  const relPath = relative(ROOT, filePath);
+  const parsed = parseFile(filePath);
+  if (!parsed) {
+    err(relPath, "could not parse frontmatter");
+    continue;
+  }
+
+  const { frontmatter, body } = parsed;
+  if (isDraft(frontmatter)) continue; // only published quotes are checked below
+
+  const trimmedBody = body.trim();
+  if (trimmedBody === "") {
+    err(relPath, "body is empty — a quote needs its text");
+  } else if (trimmedBody === QUOTE_PLACEHOLDER) {
+    err(relPath, `body is still the placeholder: "${QUOTE_PLACEHOLDER}"`);
+  }
+
+  if (getFieldValue(frontmatter, "quoteAuthor") === QUOTE_AUTHOR_PLACEHOLDER) {
+    err(relPath, `quoteAuthor is still the placeholder: "${QUOTE_AUTHOR_PLACEHOLDER}"`);
+  }
+}
+
 // ── Report ──────────────────────────────────────────────────────────────────────
 
 const errors = issues.filter(i => i.level === "ERROR");
 const warnings = issues.filter(i => i.level === "WARN");
 
 console.log(
-  `Checked ${blogFiles.length} blog file(s) and ${libraryFiles.length} library file(s).`
+  `Checked ${blogFiles.length} blog file(s), ${libraryFiles.length} library file(s), and ${quoteFiles.length} quote file(s).`
 );
 
 if (issues.length === 0) {

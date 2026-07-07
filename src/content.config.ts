@@ -4,6 +4,7 @@ import { SITE } from "@/config";
 
 export const BLOG_PATH = "src/data/blog";
 export const LIBRARY_PATH = "src/data/library";
+export const QUOTES_PATH = "src/data/quotes";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
@@ -38,4 +39,14 @@ const library = defineCollection({
     }),
 });
 
-export const collections = { blog, library };
+const quotes = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${QUOTES_PATH}` }),
+  schema: z.object({
+    quoteAuthor: z.string(),
+    source: z.string().optional(),
+    dateAdded: z.date(),
+    draft: z.boolean().optional(),
+  }),
+});
+
+export const collections = { blog, library, quotes };

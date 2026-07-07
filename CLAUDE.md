@@ -20,7 +20,8 @@ pnpm run sync             # Generate Astro TypeScript types
 # Authoring workflow (see how/writing-flow.md for full details)
 pnpm new-post "Title"     # Scaffold src/data/blog/<slug>.md (draft: true) from src/data/_templates/blog.md
 pnpm publish-post <slug>  # Validate + remove draft: true, bump pubDatetime (--keep-date to preserve it)
-pnpm check-content        # Build guard: errors on bad filenames/placeholders in published posts, warns on empty library notes
+pnpm new-quote "Author" [--source "Where it's from"]  # Scaffold src/data/quotes/<author-slug>.md (draft: true) from src/data/_templates/quote.md
+pnpm check-content        # Build guard: errors on bad filenames/placeholders in published posts/quotes, warns on empty library notes
 
 # Library management (requires GOOGLE_BOOKS_API_KEY in .env)
 pnpm add-book <isbn>                    # Fetch from Google Books by ISBN
@@ -35,10 +36,12 @@ pnpm remove-book <slug>   # Remove markdown + cover image
 **Content collections** (defined in `src/content.config.ts`):
 - `blog` — posts at `src/data/blog/`. Required frontmatter: `title`, `pubDatetime`, `description`. Supports `tags`, `draft`, `featured`, `ogImage`.
 - `library` — books at `src/data/library/`. Required frontmatter: `title`, `bookAuthor`, `genre` (array), `coverImage`, `dateRead`. Optional: `isbn`, `draft`. Cover images stored in `src/assets/images/library/`.
+- `quotes` — quotes at `src/data/quotes/`. Required frontmatter: `quoteAuthor`, `dateAdded`. Optional: `source`, `draft`. The markdown body is the quote text.
 
 **Routing** (file-based via `src/pages/`):
 - Blog: `/blog/[...slug]/` (post detail), `/blog/[...page]/` (paginated list)
 - Library: `/library/` (grid with client-side genre filter), `/library/[slug]/` (book detail)
+- Quotes: `/quotes/` (single list page, no detail pages)
 - Tags: `/tags/[tag]/[...page]/`
 
 **Configuration:** Site settings in `src/config.ts` (SITE object). Social links and share buttons in `src/constants.ts`.
@@ -63,8 +66,8 @@ pnpm remove-book <slug>   # Remove markdown + cover image
 - Scheduled posts (future `pubDatetime`) have a 15-minute visibility margin
 - Tags are slugified and deduplicated via `src/utils/slugify.ts`
 - Post filtering in `src/utils/postFilter.ts`; sorting in `src/utils/getSortedPosts.ts`
-- Library books sorted by `dateRead` descending (`src/utils/getSortedBooks.ts`)
+- Library books sorted by `dateRead` descending (`src/utils/getSortedBooks.ts`); quotes by `dateAdded` descending (`src/utils/getSortedQuotes.ts`)
 - Subdirectories prefixed with `_` (e.g., `_releases/`) are excluded from URLs by the glob loader
-- Content templates live in `src/data/_templates/` (`blog.md`, `library.md`) — used by `pnpm new-post` and `pnpm add-book`
+- Content templates live in `src/data/_templates/` (`blog.md`, `library.md`, `quote.md`) — used by `pnpm new-post`, `pnpm add-book`, and `pnpm new-quote`
 - `pnpm check-content` runs as part of `pnpm run build`, after `astro check` and before `astro build` — see `how/writing-flow.md`
 - CI runs lint, format check, and build on PRs (`.github/workflows/ci.yml`)
