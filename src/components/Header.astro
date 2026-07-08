@@ -29,27 +29,25 @@ const isActive = (path: string) => {
   Skip to content
 </a>
 
-<header
-  class="app-layout flex flex-col items-center justify-between sm:flex-row"
->
+<header class="app-layout flex flex-col items-center">
   <div
     id="top-nav-wrap"
     class:list={[
-      "py-4 sm:py-6",
+      "py-6",
       "border-b border-border-subtle",
       "relative w-full bg-bg-root",
-      "flex items-baseline justify-between sm:items-center",
+      "flex flex-col items-center gap-2.5 text-center",
     ]}
   >
     <a
       href="/"
-      class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
+      class="font-serif text-xl leading-none font-semibold tracking-wide whitespace-nowrap"
     >
       {SITE.title}
     </a>
     <nav
       id="nav-menu"
-      class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"
+      class="flex w-full flex-col items-center sm:w-auto sm:flex-row sm:justify-center"
     >
       <button
         id="menu-btn"
@@ -65,7 +63,8 @@ const isActive = (path: string) => {
         id="menu-items"
         class:list={[
           "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
-          "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:hover:text-accent-primary sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
+          "font-meta text-xs tracking-wider text-text-secondary uppercase",
+          "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:hover:text-accent-primary sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
           "hidden",
           "sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
         ]}

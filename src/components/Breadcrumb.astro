@@ -25,21 +25,18 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
 
 <nav class="app-layout mt-8 mb-1" aria-label="breadcrumb">
   <ul
-    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:text-text-primary"
+    class="font-meta text-xs tracking-wide text-text-muted uppercase [&>li]:inline [&>li:not(:last-child)>a]:hover:text-accent-primary"
   >
     <li>
-      <a href="/" class="text-text-secondary">Home</a>
-      <span aria-hidden="true" class="text-text-secondary">&raquo;</span>
+      <a href="/">Home</a>
+      <span aria-hidden="true">&raquo;</span>
     </li>
     {
       breadcrumbList.map((breadcrumb, index) =>
         index + 1 === breadcrumbList.length ? (
           <li>
             <span
-              class:list={[
-                "text-text-secondary capitalize",
-                { lowercase: index > 0 },
-              ]}
+              class:list={["capitalize", { lowercase: index > 0 }]}
               aria-current="page"
             >
               {/* make the last part lowercase in Home > Tags > some-tag */}
@@ -48,7 +45,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`} class="text-text-secondary capitalize">
+            <a href={`/${breadcrumb}/`} class="capitalize">
               {breadcrumb}
             </a>
             <span aria-hidden="true">&raquo;</span>

@@ -17,9 +17,11 @@ const genres = getUniqueGenres(books);
 <Layout title={`Library | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Library" pageDesc="Books I've read." wide>
-    <div class="mb-6 flex flex-wrap gap-2">
+    <div
+      class="mb-6 flex flex-wrap justify-center gap-x-4 gap-y-2 font-meta text-sm"
+    >
       <button
-        class="genre-filter rounded-full border border-border-subtle px-3 py-1 text-sm transition-colors data-[active]:border-accent-primary data-[active]:text-accent-primary"
+        class="genre-filter text-text-secondary transition-colors data-[active]:text-accent-primary data-[active]:underline data-[active]:underline-offset-4"
         data-genre="all"
         data-active=""
       >
@@ -28,7 +30,7 @@ const genres = getUniqueGenres(books);
       {
         genres.map(({ genre, genreName }) => (
           <button
-            class="genre-filter rounded-full border border-border-subtle px-3 py-1 text-sm transition-colors data-[active]:border-accent-primary data-[active]:text-accent-primary"
+            class="genre-filter text-text-secondary transition-colors data-[active]:text-accent-primary data-[active]:underline data-[active]:underline-offset-4"
             data-genre={genre}
           >
             {genreName}

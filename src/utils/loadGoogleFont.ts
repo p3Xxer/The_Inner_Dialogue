@@ -1,16 +1,21 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 
-// iA Writer Mono is loaded from the local @fontsource package rather than fetching
-// from the Google Fonts API at build time. This keeps fonts consistent with the site's
+// Fonts are loaded from local @fontsource packages rather than fetching from the
+// Google Fonts API at build time. This keeps fonts consistent with the site's
 // design system and avoids a network dependency during OG image generation.
-// Option A chosen: load .woff buffers from @fontsource/ia-writer-mono package.
+// Option A chosen: load .woff buffers from @fontsource packages.
 // Note: Satori supports WOFF and TTF/OTF but NOT WOFF2 — using .woff files here.
-function loadLocalFont(weight: 400 | 700): ArrayBuffer {
-  const filename = `ia-writer-mono-latin-${weight}-normal.woff`;
+// Newsreader carries the title line (serif voice); iA Writer Mono carries the
+// meta line (site name / author) — same serif/mono signature as the site.
+function loadLocalFont(
+  pkg: "ia-writer-mono" | "newsreader",
+  weight: 400 | 600 | 700
+): ArrayBuffer {
+  const filename = `${pkg}-latin-${weight}-normal.woff`;
   const fontPath = join(
     process.cwd(),
-    "node_modules/@fontsource/ia-writer-mono/files",
+    `node_modules/@fontsource/${pkg}/files`,
     filename
   );
   const buffer = readFileSync(fontPath);
@@ -27,14 +32,26 @@ async function loadFonts(): Promise<
   return [
     {
       name: "iA Writer Mono",
-      data: loadLocalFont(400),
+      data: loadLocalFont("ia-writer-mono", 400),
       weight: 400,
       style: "normal",
     },
     {
       name: "iA Writer Mono",
-      data: loadLocalFont(700),
+      data: loadLocalFont("ia-writer-mono", 700),
       weight: 700,
+      style: "normal",
+    },
+    {
+      name: "Newsreader",
+      data: loadLocalFont("newsreader", 600),
+      weight: 600,
+      style: "normal",
+    },
+    {
+      name: "Newsreader",
+      data: loadLocalFont("newsreader", 400),
+      weight: 400,
       style: "normal",
     },
   ];

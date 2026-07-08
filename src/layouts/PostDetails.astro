@@ -93,27 +93,37 @@ const nextPost =
     class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
     data-pagefind-body
   >
-    <h1
-      transition:name={slugifyStr(title.replaceAll(".", "-"))}
-      class="inline-block text-2xl font-bold text-white sm:text-3xl"
-    >
-      {title}
-    </h1>
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span class="text-text-muted">·</span>
-      <span class="text-sm text-text-muted">{readingTime} min read</span>
+    <div class="border-b border-border-subtle pb-6 text-center">
+      <h1
+        transition:name={slugifyStr(title.replaceAll(".", "-"))}
+        class="inline-block font-serif text-[28px] leading-tight font-semibold sm:text-[30px]"
+      >
+        {title}
+      </h1>
+      <div
+        class="mt-3.5 flex items-center justify-center gap-2 font-meta text-xs tracking-wide text-text-muted uppercase"
+      >
+        <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+        <span>&middot;</span>
+        <span>{readingTime} min read</span>
+      </div>
+      {
+        tags.length > 0 && (
+          <ul class="mt-2.5 flex flex-wrap justify-center gap-1">
+            {tags.map(tag => (
+              <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+            ))}
+          </ul>
+        )
+      }
     </div>
-    <ul class="mt-3 flex flex-wrap gap-2">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
-    </ul>
     <article id="article" class="app-prose mt-8 w-full max-w-app">
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
+    <hr class="my-8 border-t border-border-subtle" />
 
-    <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
+    <ul class="mt-4 mb-8 flex flex-wrap justify-center gap-1 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
     </ul>
 
@@ -121,21 +131,26 @@ const nextPost =
 
     <BackToTopButton />
 
-    <hr class="my-6 border-dashed" />
+    <hr class="my-6 border-t border-border-subtle" />
 
     <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div
+      data-pagefind-ignore
+      class="grid grid-cols-1 gap-6 border-t border-border-subtle pt-6 sm:grid-cols-2"
+    >
       {
         prevPost && (
           <a
             href={getPath(prevPost.id, prevPost.filePath)}
-            class="flex w-full gap-1 hover:opacity-75"
+            class="flex w-full flex-col gap-1 hover:opacity-75"
           >
-            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent-primary/85">{prevPost.title}</div>
-            </div>
+            <span class="font-meta text-[10px] tracking-wide text-text-muted uppercase">
+              <IconChevronLeft class="inline-block size-3 flex-none rtl:rotate-180" />
+              Previous
+            </span>
+            <span class="font-serif text-sm leading-tight font-semibold text-accent-primary">
+              {prevPost.title}
+            </span>
           </a>
         )
       }
@@ -143,13 +158,15 @@ const nextPost =
         nextPost && (
           <a
             href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
+            class="flex w-full flex-col items-end gap-1 text-end hover:opacity-75 sm:col-start-2"
           >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent-primary/85">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
+            <span class="font-meta text-[10px] tracking-wide text-text-muted uppercase">
+              Next
+              <IconChevronRight class="inline-block size-3 flex-none rtl:rotate-180" />
+            </span>
+            <span class="font-serif text-sm leading-tight font-semibold text-accent-primary">
+              {nextPost.title}
+            </span>
           </a>
         )
       }
@@ -244,7 +261,7 @@ const nextPost =
         : "-top-3";
 
       const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-bg-subtle border border-border-subtle px-2 py-1 text-xs leading-4 text-text-primary font-medium`;
+      copyButton.className = `copy-code absolute end-3 ${topClass} font-meta bg-bg-subtle border border-border-subtle px-2 py-1 text-xs uppercase tracking-wide leading-4 text-text-secondary`;
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);

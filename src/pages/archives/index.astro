@@ -43,8 +43,10 @@ const months = [
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
           <div>
-            <span class="text-2xl font-bold">{year}</span>
-            <sup class="text-sm">{yearGroup.length}</sup>
+            <span class="font-serif text-2xl font-semibold">{year}</span>
+            <sup class="font-meta text-xs text-text-muted">
+              {yearGroup.length}
+            </sup>
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
@@ -54,9 +56,13 @@ const months = [
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
               .map(([month, monthGroup]) => (
                 <div class="flex flex-col sm:flex-row">
-                  <div class="mt-6 min-w-36 text-lg sm:my-6">
-                    <span class="font-bold">{months[Number(month) - 1]}</span>
-                    <sup class="text-xs">{monthGroup.length}</sup>
+                  <div class="mt-6 min-w-36 text-center sm:my-6 sm:text-left">
+                    <span class="font-serif text-[13px] tracking-[0.12em] text-text-muted [font-variant:small-caps]">
+                      {months[Number(month) - 1]}
+                    </span>
+                    <sup class="font-meta text-xs text-text-muted">
+                      {monthGroup.length}
+                    </sup>
                   </div>
                   <ul>
                     {monthGroup

@@ -1,5 +1,4 @@
 ---
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
 ---
@@ -10,10 +9,9 @@ import { SITE } from "@/config";
       <LinkButton
         id="back-button"
         href="/"
-        class="focus-outline -ms-2 mt-8 mb-2 hover:text-text-secondary"
+        class="focus-outline mt-6 mb-2 font-meta text-xs tracking-wide text-text-muted uppercase hover:text-accent-primary"
       >
-        <IconChevronLeft class="inline-block size-6 rtl:rotate-180" />
-        <span>Go back</span>
+        <span>&larr; Back</span>
       </LinkButton>
     </div>
   )

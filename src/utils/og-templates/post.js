@@ -56,13 +56,14 @@ export default async post => {
                       flex: "1",
                     },
                     children: [
-                      // Title
+                      // Title (serif — the prose voice)
                       {
                         type: "p",
                         props: {
                           style: {
+                            fontFamily: "Newsreader",
                             fontSize: 62,
-                            fontWeight: "bold",
+                            fontWeight: 600,
                             color: colors.headingHero,
                             lineHeight: 1.2,
                             maxHeight: "70%",
@@ -72,7 +73,7 @@ export default async post => {
                           children: post.data.title,
                         },
                       },
-                      // Footer row
+                      // Footer row (mono — the data voice)
                       {
                         type: "div",
                         props: {
@@ -81,6 +82,7 @@ export default async post => {
                             justifyContent: "space-between",
                             alignItems: "flex-end",
                             width: "100%",
+                            fontFamily: "iA Writer Mono",
                           },
                           children: [
                             // Author
@@ -88,7 +90,7 @@ export default async post => {
                               type: "span",
                               props: {
                                 style: {
-                                  fontSize: 26,
+                                  fontSize: 22,
                                   color: colors.textSecondary,
                                   overflow: "hidden",
                                 },
@@ -100,8 +102,8 @@ export default async post => {
                               type: "span",
                               props: {
                                 style: {
-                                  fontSize: 26,
-                                  fontWeight: "bold",
+                                  fontSize: 22,
+                                  fontWeight: 700,
                                   color: colors.accentPrimary,
                                   overflow: "hidden",
                                 },

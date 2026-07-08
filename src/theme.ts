@@ -1,43 +1,44 @@
 /**
  * Centralized design system — single source of truth.
+ * Marginalia palette: warm ink-and-paper dark tones, one interactive accent (muted oxblood).
  * Used by: Layout.astro (generates :root CSS vars), OG templates (Satori inline styles).
  * Never hardcode hex values anywhere else — always reference from here.
  */
 
 export const colors = {
   // Backgrounds
-  bgRoot: "#0E0E0E",
-  bgElevated: "#161616",
-  bgSubtle: "#1A1A1A",
-  bgHover: "#1F1F1F",
+  bgRoot: "#1C1815",
+  bgElevated: "#221D19",
+  bgSubtle: "#262019",
+  bgHover: "#2B241D",
 
   // Borders
-  borderSubtle: "#2A2A2A",
-  borderStrong: "#3A3A3A",
+  borderSubtle: "#362D24",
+  borderStrong: "#463A2E",
 
   // Text
-  textPrimary: "#E6E6E6",
-  textSecondary: "#A8A8A8",
-  textMuted: "#7A7A7A",
-  textDisabled: "#5A5A5A",
-  heading: "#DADADA",
-  headingHero: "#FFFFFF",
+  textPrimary: "#EAE3D8",
+  textSecondary: "#B8AB98",
+  textMuted: "#8A7D6C",
+  textDisabled: "#6B6155",
+  heading: "#EAE3D8",
+  headingHero: "#F2ECE1",
 
-  // Accent — Warm Brass
-  accentPrimary: "#D4A259",
-  accentPrimaryHover: "#E6B86A",
-  accentPrimaryMuted: "#7A5A2E",
+  // Accent — Muted Oxblood (the only interactive color)
+  accentPrimary: "#A65F52",
+  accentPrimaryHover: "#B96E60",
+  accentPrimaryMuted: "#7D4A41",
 
-  // Accent — Muted Wine
-  accentSecondary: "#8C5A6A",
-  accentSecondaryMuted: "#5A3A45",
+  // Accent — Secondary (retired from UI; var kept so typography.css still compiles)
+  accentSecondary: "#7D4A41",
+  accentSecondaryMuted: "#5E3B34",
 
-  // Accent — Tertiary (rare)
-  accentTertiary: "#6F7B4A",
+  // Accent — Tertiary (retired from UI; var kept, now reads as neutral ink)
+  accentTertiary: "#8A7D6C",
 
   // Code blocks
-  codeBg: "#121212",
-  codeText: "#DCDCDC",
+  codeBg: "#16120F",
+  codeText: "#DBD7CA",
 } as const;
 
 /**
@@ -75,7 +76,7 @@ export const cssVars: Record<string, string> = {
 
 export const typography = {
   baseFontSize: "18px",
-  bodyLineHeight: 1.7, // terminal mode (default)
+  bodyLineHeight: 1.75,
   blogMaxWidth: "42.5rem", // 680px
   libraryMaxWidth: "68.75rem", // 1100px
 } as const;

@@ -24,6 +24,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "@fontsource/ia-writer-mono": "^5.2.5",
     "@fontsource/jost": "^5.2.8",
+    "@fontsource/newsreader": "^5.2.10",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",

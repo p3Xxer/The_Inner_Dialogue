@@ -14,7 +14,7 @@ const { page } = Astro.props;
 {
   page.lastPage > 1 && (
     <nav
-      class="mt-auto mb-8 flex justify-center"
+      class="mt-auto mb-8 flex items-center justify-center font-meta text-xs tracking-wide text-text-muted uppercase"
       role="navigation"
       aria-label="Pagination Navigation"
     >
@@ -22,7 +22,7 @@ const { page } = Astro.props;
         disabled={!page.url.prev}
         href={page.url.prev as string}
         class:list={[
-          "me-4 select-none",
+          "me-4 select-none hover:text-accent-primary",
           { "text-text-disabled": !page.url.prev },
         ]}
         aria-label="Goto Previous Page"
@@ -35,7 +35,7 @@ const { page } = Astro.props;
         disabled={!page.url.next}
         href={page.url.next as string}
         class:list={[
-          "ms-4 select-none",
+          "ms-4 select-none hover:text-accent-primary",
           { "text-text-disabled": !page.url.next },
         ]}
         aria-label="Goto Next Page"

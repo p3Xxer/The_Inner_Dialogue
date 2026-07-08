@@ -73,8 +73,9 @@ export default async () => {
                               type: "p",
                               props: {
                                 style: {
+                                  fontFamily: "Newsreader",
                                   fontSize: 72,
-                                  fontWeight: "bold",
+                                  fontWeight: 600,
                                   color: colors.headingHero,
                                   margin: 0,
                                   lineHeight: 1.2,
@@ -86,6 +87,8 @@ export default async () => {
                               type: "p",
                               props: {
                                 style: {
+                                  fontFamily: "Newsreader",
+                                  fontStyle: "italic",
                                   fontSize: 28,
                                   color: colors.textSecondary,
                                   margin: 0,
@@ -98,13 +101,14 @@ export default async () => {
                           ],
                         },
                       },
-                      // Domain
+                      // Domain (mono — the data voice)
                       {
                         type: "span",
                         props: {
                           style: {
-                            fontSize: 24,
-                            fontWeight: "bold",
+                            fontFamily: "iA Writer Mono",
+                            fontSize: 22,
+                            fontWeight: 700,
                             color: colors.accentPrimary,
                             overflow: "hidden",
                           },

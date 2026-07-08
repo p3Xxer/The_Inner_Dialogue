@@ -15,7 +15,7 @@ const dateStr = dateRead.toLocaleDateString("en-US", {
 ---
 
 <li
-  class="overflow-hidden rounded-lg border border-border-subtle bg-bg-elevated transition-colors hover:border-accent-primary-muted hover:bg-bg-hover"
+  class="overflow-hidden border border-border-subtle bg-bg-elevated transition-colors hover:border-accent-primary-muted"
   data-genre={slugifyAll(genre).join(",")}
 >
   <a href={`/library/${id}/`} class="flex h-full flex-col">
@@ -30,12 +30,16 @@ const dateStr = dateRead.toLocaleDateString("en-US", {
       />
     </div>
     <div class="flex flex-1 flex-col gap-2 p-4">
-      <h2 class="leading-snug font-medium text-white">{title}</h2>
-      <p class="text-sm text-text-secondary">{bookAuthor}</p>
-      <ul class="flex flex-wrap gap-x-2 gap-y-1">
-        {genre.map(g => <li class="text-xs text-accent-primary">{g}</li>)}
+      <h2 class="font-serif leading-snug font-semibold text-text-primary">
+        {title}
+      </h2>
+      <p class="font-meta text-xs text-text-secondary">{bookAuthor}</p>
+      <ul class="flex flex-wrap gap-x-2 gap-y-1 font-meta text-xs uppercase">
+        {genre.map(g => <li class="text-accent-primary">{g}</li>)}
       </ul>
-      <p class="mt-auto pt-1 text-xs text-text-muted">{dateStr}</p>
+      <p class="mt-auto pt-1 font-meta text-xs text-text-muted uppercase">
+        {dateStr}
+      </p>
     </div>
   </a>
 </li>

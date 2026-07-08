@@ -3,10 +3,14 @@ import "@fontsource/ia-writer-mono/400.css";
 import "@fontsource/ia-writer-mono/400-italic.css";
 import "@fontsource/ia-writer-mono/700.css";
 import "@fontsource/ia-writer-mono/700-italic.css";
+import "@fontsource/newsreader/400.css";
+import "@fontsource/newsreader/400-italic.css";
+import "@fontsource/newsreader/600.css";
+import "@fontsource/newsreader/600-italic.css";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
-import { cssVars } from "@/theme";
+import { cssVars, colors } from "@/theme";
 import "@/styles/global.css";
 
 // Generate :root CSS variables from theme.ts
@@ -125,7 +129,7 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="#0E0E0E" />
+    <meta name="theme-color" content={colors.bgRoot} />
 
     {
       PUBLIC_GOOGLE_SITE_VERIFICATION && (

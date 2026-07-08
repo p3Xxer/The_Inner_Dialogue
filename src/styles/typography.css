@@ -7,11 +7,12 @@
     font-size: 18px;
   }
 
-  /* ===== .app-prose — reading content wrapper ===== */
+  /* ===== .app-prose — reading content wrapper (serif reading voice) ===== */
   .app-prose {
     color: var(--text-primary);
-    line-height: 1.8;
-    font-size: 1rem;
+    font-family: var(--font-serif);
+    line-height: 1.75;
+    font-size: 0.95rem;
 
     /* ----- Headings ----- */
     h1,
@@ -20,30 +21,29 @@
     h4,
     h5,
     h6 {
-      font-family: inherit;
+      font-family: var(--font-serif);
+      font-weight: 600;
       text-transform: none;
-      letter-spacing: 0;
+      letter-spacing: 0.01em;
       margin-bottom: 0.75rem;
     }
 
     h1 {
       font-size: 2.2rem;
-      font-weight: 600;
       line-height: 1.2;
       margin-top: 0;
       color: var(--heading-hero);
     }
 
     h2 {
-      font-size: 1.6rem;
-      font-weight: 600;
+      font-size: 1.35rem;
       line-height: 1.3;
       margin-top: 3rem;
       color: var(--heading);
     }
 
     h3 {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 500;
       line-height: 1.4;
       margin-top: 2.5rem;
@@ -51,7 +51,7 @@
     }
 
     h4 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 500;
       line-height: 1.4;
       margin-top: 2.5rem;
@@ -107,7 +107,7 @@
       background-color: var(--accent-primary-muted);
       color: var(--accent-primary-hover);
       padding: 1px 5px;
-      border-radius: 3px;
+      border-radius: 0;
     }
 
     u {
@@ -137,8 +137,9 @@
     }
 
     sup {
+      font-family: var(--font-meta);
       color: var(--accent-primary);
-      font-size: 0.75em;
+      font-size: 0.7em;
       line-height: 0;
       vertical-align: super;
     }
@@ -151,14 +152,14 @@
     }
 
     kbd {
-      font-family: inherit;
+      font-family: var(--font-meta);
       font-size: 0.85em;
       background-color: var(--bg-elevated);
       border: 1px solid var(--border-strong);
       border-bottom-width: 2px;
       color: var(--text-secondary);
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 0;
     }
 
     abbr[title] {
@@ -209,12 +210,13 @@
     }
 
     /* ----- Blockquotes ----- */
+    /* accent-primary-muted's one in-post job — see theme.ts */
     blockquote {
-      border-left: 3px solid var(--accent-primary-muted);
+      border-left: 2px solid var(--accent-primary-muted);
       padding-left: 1rem;
       margin: 2rem 0;
       overflow-wrap: break-word;
-      color: var(--accent-secondary);
+      color: var(--text-secondary);
       font-style: italic;
     }
 
@@ -252,13 +254,14 @@
     }
 
     /* ----- Inline code ----- */
+    /* mono is the "data" voice inside serif prose — font-family must be explicit here */
     code {
-      font-family: inherit;
-      font-size: 0.9em;
+      font-family: var(--font-meta);
+      font-size: 0.82em;
       background-color: var(--code-bg);
       border: 1px solid var(--border-subtle);
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 0;
       overflow-wrap: break-word;
       word-break: break-word;
     }
@@ -272,10 +275,11 @@
     pre {
       background-color: var(--code-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 6px;
+      border-radius: 0;
       padding: 1.4rem;
       overflow-x: auto;
       margin-bottom: 1.6rem;
+      font-family: var(--font-meta);
       font-size: 0.95rem;
     }
 
@@ -288,7 +292,7 @@
 
     pre:focus-visible {
       border-color: transparent;
-      outline: 2px dashed var(--accent-primary);
+      outline: 2px solid var(--accent-primary);
     }
 
     /* ----- Tables ----- */
@@ -341,7 +345,7 @@
     }
 
     summary:focus-visible {
-      outline: 2px dashed var(--accent-primary);
+      outline: 2px solid var(--accent-primary);
       outline-offset: 1px;
       text-decoration: none;
     }
@@ -354,7 +358,7 @@
       background-color: var(--bg-elevated);
       padding: 0.85rem 1rem;
       margin: 2rem 0;
-      border-radius: 0 4px 4px 0;
+      border-radius: 0;
     }
 
     aside.callout-note {

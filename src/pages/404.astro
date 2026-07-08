@@ -13,13 +13,15 @@ import { SITE } from "@/config";
     id="main-content"
     class="app-layout flex flex-1 items-center justify-center"
   >
-    <div class="mb-14 flex flex-col items-center justify-center">
-      <h1 class="text-9xl font-bold text-accent-primary">404</h1>
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+    <div class="mb-14 flex flex-col items-center justify-center text-center">
+      <h1 class="font-serif text-8xl font-semibold text-accent-primary">404</h1>
+      <span aria-hidden="true" class="font-meta text-text-muted">
+        ¯\_(ツ)_/¯
+      </span>
+      <p class="mt-4 font-serif text-2xl italic sm:text-3xl">Page Not Found</p>
       <LinkButton
         href="/"
-        class="my-6 text-lg underline decoration-dashed underline-offset-8"
+        class="mt-6 font-meta text-sm tracking-wide uppercase underline underline-offset-4"
       >
         Go back home
       </LinkButton>

@@ -26,12 +26,23 @@ const groupedPosts = getPostsByGroupCondition(sortedPosts, post =>
   <main id="main-content" data-layout="index" class="app-layout">
     <section
       id="hero"
-      class:list={["pt-8 pb-6", "border-b border-border-subtle"]}
+      class:list={[
+        "flex flex-col items-center pt-10 pb-8 text-center",
+        "border-b border-border-subtle",
+      ]}
     >
-      <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-4xl">
+      <div
+        aria-hidden="true"
+        class="mb-1 font-serif text-[42px] leading-none text-accent-primary opacity-85"
+      >
+        &ldquo;
+      </div>
+      <h1
+        class="my-2 inline-block font-serif text-3xl font-semibold sm:text-4xl"
+      >
         The Inner Dialogue
       </h1>
-      <p>
+      <p class="max-w-[44ch] font-serif text-base text-text-secondary italic">
         A space for thinking out loud — notes on software, design, books and the
         things in between.
       </p>
@@ -41,23 +52,23 @@ const groupedPosts = getPostsByGroupCondition(sortedPosts, post =>
       {
         Object.entries(groupedPosts).map(([group, groupPosts]) => (
           <div class="mb-10">
-            <h2 class="mb-3 text-lg font-medium text-text-secondary">
+            <h2 class="mb-3 text-center font-serif text-[13px] tracking-[0.12em] text-text-muted [font-variant:small-caps]">
               {group}
             </h2>
             <ul>
               {groupPosts.map(post => {
                 const date = dayjs(post.data.pubDatetime).tz(SITE.timezone);
                 return (
-                  <li class="flex items-center justify-between py-2.5">
+                  <li class="border-b border-border-subtle py-4 text-center last:border-b-0">
                     <a
                       href={getPath(post.id, post.filePath)}
-                      class="text-accent-primary decoration-dashed underline-offset-4 hover:underline"
+                      class="inline-block font-serif leading-tight font-semibold text-accent-primary underline-offset-4 hover:underline"
                     >
                       {post.data.title}
                     </a>
                     <time
                       datetime={date.toISOString()}
-                      class="ml-6 shrink-0 text-sm text-text-muted"
+                      class="mt-1.5 block font-meta text-xs tracking-wide text-text-muted uppercase"
                     >
                       {date.format("D MMM, YYYY")}
                     </time>

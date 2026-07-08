@@ -2,19 +2,15 @@
  * CustomShiki transformer that adds file name labels to code blocks.
  *
  * This transformer looks for the `file="filename"` meta attribute in code blocks
- * and creates a styled label showing the filename. It supports two different
- * styling options and can optionally hide the green dot indicator.
+ * and creates a styled label showing the filename — a mono filename bar on
+ * bg-elevated with a hairline border, matching the Marginalia code-block treatment.
  *
  * @param {Object} options - Configuration options for the transformer
  * @param {string} [options.style="v2"] - The styling variant to use
- *   - `"v1"`: Tab-style with rounded top corners, positioned at top-left
+ *   - `"v1"`: Tab-style, positioned at top-left, flush with the block
  *   - `"v2"`: Badge-style with border, positioned at top-left with offset
- * @param {boolean} [options.hideDot=false] - Whether to hide the green dot indicator
  */
-export const transformerFileName = ({
-  style = "v2",
-  hideDot = false,
-} = {}) => ({
+export const transformerFileName = ({ style = "v2" } = {}) => ({
   pre(node) {
     // Add CSS custom property to the node
     const fileNameOffset = style === "v1" ? "0.75rem" : "-0.75rem";
@@ -38,10 +34,7 @@ export const transformerFileName = ({
     if (!file) return;
 
     // Add additional margin to code block
-    this.addClassToHast(
-      node,
-      `mt-8 ${style === "v1" ? "rounded-tl-none" : ""}`
-    );
+    this.addClassToHast(node, "mt-8");
 
     // Add file name to code block
     node.children.push({
@@ -49,13 +42,10 @@ export const transformerFileName = ({
       tagName: "span",
       properties: {
         class: [
-          "absolute py-1 text-foreground text-xs font-medium leading-4",
-          hideDot
-            ? "px-2"
-            : "pl-4 pr-2 before:inline-block before:size-1 before:bg-green-500 before:rounded-full before:absolute before:top-[45%] before:left-2",
+          "font-meta absolute px-3 py-1.5 text-xs leading-4 tracking-wide text-text-muted uppercase",
           style === "v1"
-            ? "left-0 -top-6 rounded-t-md border border-b-0 bg-muted/50"
-            : "left-2 top-(--file-name-offset) border rounded-md bg-background",
+            ? "left-0 -top-7 border border-b-0 border-border-subtle bg-bg-elevated"
+            : "left-2 top-(--file-name-offset) border border-border-subtle bg-bg-elevated",
         ],
       },
       children: [
