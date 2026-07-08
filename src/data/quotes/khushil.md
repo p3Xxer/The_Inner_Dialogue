@@ -1,8 +1,7 @@
 ---
-quoteAuthor: "Khushil"
-# source: Book, talk, or essay it came from
+quoteAuthor: Khushil
 dateAdded: 2026-07-07
-draft: true
+draft: false
 ---
 
 Years of memories fade in months. Hold on to your memories!
