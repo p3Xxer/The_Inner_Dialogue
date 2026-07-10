@@ -21,7 +21,8 @@ pnpm run sync             # Generate Astro TypeScript types
 pnpm new-post "Title"     # Scaffold src/data/blog/<slug>.md (draft: true) from src/data/_templates/blog.md
 pnpm publish-post <slug>  # Validate + remove draft: true, bump pubDatetime (--keep-date to preserve it)
 pnpm new-quote "Author" [--source "Where it's from"]  # Scaffold src/data/quotes/<author-slug>.md (draft: true) from src/data/_templates/quote.md
-pnpm check-content        # Build guard: errors on bad filenames/placeholders in published posts/quotes, warns on empty library notes
+pnpm new-note "Title" --topic dsa/graphs  # Scaffold src/data/notes/<slug>.md (draft: true) from src/data/_templates/note.md
+pnpm check-content        # Build guard: errors on bad filenames/placeholders in published posts/quotes/notes, warns on empty library notes
 
 # Library management (requires GOOGLE_BOOKS_API_KEY in .env)
 pnpm add-book <isbn>                    # Fetch from Google Books by ISBN
@@ -37,10 +38,12 @@ pnpm remove-book <slug>   # Remove markdown + cover image
 - `blog` — posts at `src/data/blog/`. Required frontmatter: `title`, `pubDatetime`, `description`. Supports `tags`, `draft`, `featured`, `ogImage`.
 - `library` — books at `src/data/library/`. Required frontmatter: `title`, `bookAuthor`, `genre` (array), `coverImage`, `dateRead`. Optional: `isbn`, `draft`. Cover images stored in `src/assets/images/library/`.
 - `quotes` — quotes at `src/data/quotes/`. Required frontmatter: `quoteAuthor`, `dateAdded`. Optional: `source`, `draft`. The markdown body is the quote text.
+- `notes` — notes at `src/data/notes/`. Required frontmatter: `title`, `description`, `topic` (slash-separated kebab-case path, e.g. `dsa/graphs`), `pubDatetime`. Optional: `modDatetime`, `draft`.
 
 **Routing** (file-based via `src/pages/`):
 - Blog: `/blog/[...slug]/` (post detail), `/blog/[...page]/` (paginated list)
 - Library: `/library/` (grid with client-side genre filter), `/library/[slug]/` (book detail)
+- Notes: `/notes/` (topic-grouped outline with client-side topic filter), `/notes/[...slug]/` (note detail — URLs stay flat regardless of topic)
 - Quotes: `/quotes/` (single list page, no detail pages)
 - Tags: `/tags/[tag]/[...page]/`
 
@@ -62,12 +65,13 @@ pnpm remove-book <slug>   # Remove markdown + cover image
 
 ## Key Conventions
 
-- Posts and library entries with `draft: true` are excluded from production builds but visible in dev
+- Posts, library entries, and notes with `draft: true` are excluded from production builds but visible in dev
+- Note topics are slash-separated kebab-case paths (`finance` or `dsa/graphs`); parents roll up children by prefix match, and note URLs stay flat so re-filing never breaks a link
 - Scheduled posts (future `pubDatetime`) have a 15-minute visibility margin
 - Tags are slugified and deduplicated via `src/utils/slugify.ts`
 - Post filtering in `src/utils/postFilter.ts`; sorting in `src/utils/getSortedPosts.ts`
-- Library books sorted by `dateRead` descending (`src/utils/getSortedBooks.ts`); quotes by `dateAdded` descending (`src/utils/getSortedQuotes.ts`)
+- Library books sorted by `dateRead` descending (`src/utils/getSortedBooks.ts`); quotes by `dateAdded` descending (`src/utils/getSortedQuotes.ts`); notes by `modDatetime ?? pubDatetime` descending (`src/utils/getSortedNotes.ts`), grouped via `src/utils/topics.ts`
 - Subdirectories prefixed with `_` (e.g., `_releases/`) are excluded from URLs by the glob loader
-- Content templates live in `src/data/_templates/` (`blog.md`, `library.md`, `quote.md`) — used by `pnpm new-post`, `pnpm add-book`, and `pnpm new-quote`
+- Content templates live in `src/data/_templates/` (`blog.md`, `library.md`, `quote.md`, `note.md`) — used by `pnpm new-post`, `pnpm add-book`, `pnpm new-quote`, and `pnpm new-note`
 - `pnpm check-content` runs as part of `pnpm run build`, after `astro check` and before `astro build` — see `how/writing-flow.md`
 - CI runs lint, format check, and build on PRs (`.github/workflows/ci.yml`)

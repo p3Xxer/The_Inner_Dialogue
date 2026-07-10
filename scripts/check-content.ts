@@ -19,6 +19,12 @@
  *     - For PUBLISHED quotes only: ERROR if the body is empty or still the
  *       template placeholder, or if quoteAuthor is still the placeholder
  *
+ *   Notes (src/data/notes/**\/*.md, skipping _-prefixed):
+ *     - ERROR if the filename is not kebab-case
+ *     - For PUBLISHED notes only (no `draft: true`): ERROR if description is
+ *       missing/placeholder, topic is missing or not a slash-separated
+ *       kebab-case path, or the body still contains template artifacts
+ *
  * Exits 1 if any ERRORs were found, 0 otherwise (warnings don't fail the build).
  */
 
@@ -29,8 +35,14 @@ const ROOT = process.cwd();
 const BLOG_DIR = join(ROOT, "src/data/blog");
 const LIBRARY_DIR = join(ROOT, "src/data/library");
 const QUOTES_DIR = join(ROOT, "src/data/quotes");
+const NOTES_DIR = join(ROOT, "src/data/notes");
 
 const PLACEHOLDER_DESCRIPTION = "A short summary of what this post is about.";
+const NOTE_PLACEHOLDER_DESCRIPTION =
+  "A short summary of what this note covers.";
+const NOTE_BODY_ARTIFACT =
+  "The idea in one or two sentences — what clicked and why it matters.";
+const NOTE_TOPIC_RE = /^[a-z0-9-]+(\/[a-z0-9-]+)*$/;
 const NOTES_PLACEHOLDER = "<!-- Add your notes here -->";
 const QUOTE_PLACEHOLDER = "The quote text goes here.";
 const QUOTE_AUTHOR_PLACEHOLDER = "Author Name";
@@ -178,13 +190,53 @@ for (const filePath of quoteFiles) {
   }
 }
 
+// ── Notes checks ───────────────────────────────────────────────────────────────
+
+const noteFiles = walk(NOTES_DIR);
+
+for (const filePath of noteFiles) {
+  const relPath = relative(ROOT, filePath);
+  const filename = filePath.split("/").pop() as string;
+
+  if (!KEBAB_CASE_RE.test(filename)) {
+    err(relPath, `filename is not kebab-case (expected pattern ${KEBAB_CASE_RE})`);
+  }
+
+  const parsed = parseFile(filePath);
+  if (!parsed) {
+    err(relPath, "could not parse frontmatter");
+    continue;
+  }
+
+  const { frontmatter, body } = parsed;
+  if (isDraft(frontmatter)) continue; // only published notes are checked below
+
+  const description = getFieldValue(frontmatter, "description");
+  if (!description) {
+    err(relPath, "description is missing or empty");
+  } else if (description === NOTE_PLACEHOLDER_DESCRIPTION) {
+    err(relPath, `description is still the placeholder: "${NOTE_PLACEHOLDER_DESCRIPTION}"`);
+  }
+
+  const topic = getFieldValue(frontmatter, "topic");
+  if (!topic) {
+    err(relPath, "topic is missing or empty");
+  } else if (!NOTE_TOPIC_RE.test(topic)) {
+    err(relPath, `topic "${topic}" is not a slash-separated kebab-case path (e.g. "dsa/graphs")`);
+  }
+
+  if (body.includes(NOTE_BODY_ARTIFACT)) {
+    err(relPath, `body still contains template artifact "${NOTE_BODY_ARTIFACT}"`);
+  }
+}
+
 // ── Report ──────────────────────────────────────────────────────────────────────
 
 const errors = issues.filter(i => i.level === "ERROR");
 const warnings = issues.filter(i => i.level === "WARN");
 
 console.log(
-  `Checked ${blogFiles.length} blog file(s), ${libraryFiles.length} library file(s), and ${quoteFiles.length} quote file(s).`
+  `Checked ${blogFiles.length} blog file(s), ${libraryFiles.length} library file(s), ${quoteFiles.length} quote file(s), and ${noteFiles.length} note file(s).`
 );
 
 if (issues.length === 0) {

@@ -173,14 +173,49 @@ page is the whole section.
 
 ---
 
+## Notes
+
+**1. Scaffold a new note**
+
+```bash
+pnpm new-note "Note Title" --topic dsa/graphs
+```
+
+This slugifies the title, creates `src/data/notes/{slug}.md` with `draft: true`
+frontmatter pre-filled (title, a placeholder description, the topic,
+`pubDatetime` set to now), and drops in the placeholder body from
+`src/data/_templates/note.md`. Both the title and `--topic` are required;
+the topic must be a slash-separated kebab-case path (`finance`, or
+`dsa/graphs` — depth is optional). Refuses to run if a note already exists
+at that path.
+
+**2. Write**
+
+Notes are living documents — planted once, tended over time. Fill in the
+description and write the note. While `draft: true` is set, it's visible in
+`pnpm run dev` (preview at `http://localhost:4321/notes/{slug}/`) but never
+in production builds.
+
+**3. Publish**
+
+Remove `draft: true`. The note appears on `/notes/`, grouped under its topic
+(parents roll up children: the `dsa` filter matches `dsa/graphs` too). Note
+URLs stay flat — `/notes/{slug}/` — so re-filing a note under a new topic
+never breaks a link. When you come back and expand a note, set `modDatetime`;
+the index sorts by `modDatetime ?? pubDatetime` and the note page shows
+"last tended".
+
+---
+
 ## Checking Content Before Publishing
 
 ```bash
 pnpm check-content
 ```
 
-A build guard that scans `src/data/blog/`, `src/data/library/`, and
-`src/data/quotes/` (skipping `_`-prefixed files/dirs) and reports:
+A build guard that scans `src/data/blog/`, `src/data/library/`,
+`src/data/quotes/`, and `src/data/notes/` (skipping `_`-prefixed files/dirs)
+and reports:
 
 - **ERROR** — blog filenames that aren't kebab-case
 - **ERROR** — for published blog posts (no `draft: true`): missing/placeholder
@@ -188,6 +223,9 @@ A build guard that scans `src/data/blog/`, `src/data/library/`, and
   still in `tags`
 - **ERROR** — for published quotes: an empty body, a body that's still the
   template placeholder, or a `quoteAuthor` that's still `Author Name`
+- **ERROR** — note filenames that aren't kebab-case; and for published notes:
+  missing/placeholder description, a missing or malformed `topic` (must be a
+  slash-separated kebab-case path), or leftover template text in the body
 - **WARN** — for published library notes: an empty body or one that's still
   just the `<!-- Add your notes here -->` placeholder (this doesn't fail the
   build — several existing notes are like this)
@@ -220,5 +258,6 @@ without them showing up in production.
 - Blog template: `src/data/_templates/blog.md`
 - Library template: `src/data/_templates/library.md`
 - Quote template: `src/data/_templates/quote.md`
+- Note template: `src/data/_templates/note.md`
 - Typography reference post: viewable in dev mode only — navigate to `http://localhost:4321/blog/typography-reference/` to preview all typography elements
 - Typography element docs: `docs/typography-reference.md`

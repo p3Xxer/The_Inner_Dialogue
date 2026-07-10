@@ -1,0 +1,228 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import getSortedNotes from "@/utils/getSortedNotes";
+import { buildTopicOutline, formatTopicSegment } from "@/utils/topics";
+import { SITE } from "@/config";
+
+const allNotes = await getCollection("notes");
+const notes = getSortedNotes(allNotes);
+const outline = buildTopicOutline(notes);
+
+const noteDate = (note: (typeof notes)[number]) =>
+  (note.data.modDatetime ?? note.data.pubDatetime).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+
+const chipClass =
+  "topic-filter text-text-secondary transition-colors data-[active]:text-accent-primary data-[active]:underline data-[active]:underline-offset-4";
+---
+
+<Layout title={`Notes | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Notes" pageDesc="Things I'm learning, filed by topic.">
+    {
+      notes.length === 0 ? (
+        <p class="py-8 text-center text-text-muted">Nothing filed yet.</p>
+      ) : (
+        <>
+          <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 font-meta text-sm">
+            <button
+              class={chipClass}
+              data-topic="all"
+              data-level="top"
+              data-active=""
+            >
+              All
+            </button>
+            {outline.map(group => (
+              <button
+                class={chipClass}
+                data-topic={group.parent}
+                data-level="top"
+              >
+                {group.label}
+              </button>
+            ))}
+          </div>
+
+          {outline
+            .filter(group => group.subGroups.length > 0)
+            .map(group => (
+              <div
+                class="mt-2.5 flex flex-wrap justify-center gap-x-4 gap-y-2 font-meta text-xs"
+                data-subrow={group.parent}
+                hidden
+              >
+                <button class={chipClass} data-topic={group.parent}>
+                  All {group.label}
+                </button>
+                {group.subGroups.map(sub => (
+                  <button
+                    class={chipClass}
+                    data-topic={`${group.parent}/${sub.child}`}
+                  >
+                    {formatTopicSegment(sub.child)}
+                  </button>
+                ))}
+              </div>
+            ))}
+
+          <div class="mt-8 flex flex-col gap-9" id="notes-outline">
+            {outline.map(group => (
+              <section data-topic-group={group.parent}>
+                <div class="flex items-baseline justify-between border-b border-border-subtle pb-2 font-meta text-xs tracking-wide uppercase">
+                  <span class="text-accent-primary">{group.label}</span>
+                  <span class="text-text-muted">
+                    {group.count} {group.count === 1 ? "note" : "notes"}
+                  </span>
+                </div>
+                {group.directNotes.length > 0 && (
+                  <ul>
+                    {group.directNotes.map(note => (
+                      <li
+                        class="border-b border-border-subtle py-3.5 last:border-b-0"
+                        data-topic={note.data.topic}
+                      >
+                        <h3 class="font-serif text-lg leading-snug font-semibold">
+                          <a
+                            href={`/notes/${note.id}/`}
+                            class="text-text-primary hover:text-accent-primary"
+                          >
+                            {note.data.title}
+                          </a>
+                        </h3>
+                        <p class="text-sm text-text-secondary italic">
+                          {note.data.description}
+                        </p>
+                        <p class="mt-1.5 font-meta text-xs tracking-wide text-text-muted uppercase">
+                          {noteDate(note)}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {group.subGroups.map(sub => (
+                  <div data-subgroup>
+                    <p class="mt-4 pl-4 font-meta text-xs tracking-wide text-text-muted uppercase">
+                      <span class="text-accent-primary-muted">/</span>{" "}
+                      {sub.child}
+                    </p>
+                    <ul class="pl-4">
+                      {sub.notes.map(note => (
+                        <li
+                          class="border-b border-border-subtle py-3.5 last:border-b-0"
+                          data-topic={note.data.topic}
+                        >
+                          <h3 class="font-serif text-lg leading-snug font-semibold">
+                            <a
+                              href={`/notes/${note.id}/`}
+                              class="text-text-primary hover:text-accent-primary"
+                            >
+                              {note.data.title}
+                            </a>
+                          </h3>
+                          <p class="text-sm text-text-secondary italic">
+                            {note.data.description}
+                          </p>
+                          <p class="mt-1.5 font-meta text-xs tracking-wide text-text-muted uppercase">
+                            {noteDate(note)}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
+            ))}
+          </div>
+        </>
+      )
+    }
+  </Main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const filterBtns =
+      document.querySelectorAll<HTMLButtonElement>(".topic-filter");
+    if (filterBtns.length === 0) return;
+
+    const groups = document.querySelectorAll<HTMLElement>("[data-topic-group]");
+    const subRows = document.querySelectorAll<HTMLElement>("[data-subrow]");
+
+    function applyFilter(selected: string) {
+      // Unknown topic (e.g. a stale URL) falls back to "all"
+      if (![...filterBtns].some(b => b.dataset.topic === selected)) {
+        selected = "all";
+      }
+      const parent = selected === "all" ? null : selected.split("/")[0];
+
+      // Active states: top chips track the parent, sub chips match exactly
+      filterBtns.forEach(btn => {
+        delete btn.dataset.active;
+        const topic = btn.dataset.topic!;
+        const active =
+          btn.dataset.level === "top"
+            ? topic === (parent ?? "all")
+            : topic === selected;
+        if (active) btn.dataset.active = "";
+      });
+
+      // Sub-chip rows: visible only while their parent (or a child) is active
+      subRows.forEach(row => {
+        row.hidden = row.dataset.subrow !== parent;
+      });
+
+      // Prune the outline — never re-sort it
+      groups.forEach(group => {
+        group.hidden = parent !== null && group.dataset.topicGroup !== parent;
+
+        group.querySelectorAll<HTMLLIElement>("li[data-topic]").forEach(row => {
+          const topic = row.dataset.topic!;
+          row.hidden = !(
+            selected === "all" ||
+            topic === selected ||
+            topic.startsWith(selected + "/")
+          );
+        });
+
+        // Hide sub-group blocks left with no visible rows
+        group
+          .querySelectorAll<HTMLElement>("[data-subgroup]")
+          .forEach(block => {
+            block.hidden = ![
+              ...block.querySelectorAll<HTMLLIElement>("li[data-topic]"),
+            ].some(row => !row.hidden);
+          });
+      });
+
+      return selected;
+    }
+
+    // Apply filter from URL on load
+    const params = new URLSearchParams(window.location.search);
+    applyFilter(params.get("topic") ?? "all");
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const selected = applyFilter(btn.dataset.topic!);
+
+        // Sync URL without page reload
+        const url = new URL(window.location.href);
+        if (selected === "all") {
+          url.searchParams.delete("topic");
+        } else {
+          url.searchParams.set("topic", selected);
+        }
+        history.replaceState({}, "", url.toString());
+      });
+    });
+  });
+</script>

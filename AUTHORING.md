@@ -1,6 +1,6 @@
 # How To: Add Content
 
-Quick reference for creating blog posts, library (book) entries, and quotes. For edge cases and visibility rules, see [how/writing-flow.md](how/writing-flow.md).
+Quick reference for creating blog posts, library (book) entries, quotes, and notes. For edge cases and visibility rules, see [how/writing-flow.md](how/writing-flow.md).
 
 ## New Blog Post
 
@@ -80,11 +80,34 @@ Then:
 
 There's no publish script for quotes; there's nothing to validate beyond what `pnpm check-content` catches (a published quote with a placeholder body or author fails the build). Quotes appear on `/quotes/` sorted by `dateAdded`, newest first — no detail pages.
 
+## New Note
+
+```bash
+pnpm new-note "Note Title" --topic dsa/graphs
+```
+
+This creates `src/data/notes/note-title.md` with:
+
+- a slugified filename (note URLs stay flat — the topic never appears in the URL)
+- `pubDatetime` stamped for you (ISO UTC)
+- `draft: true` — visible in dev, never in prod
+- the placeholder body from `src/data/_templates/note.md`
+
+`--topic` is required and must be a slash-separated kebab-case path: `finance` for a flat topic, `dsa/graphs` for a nested one. Depth is optional — parents roll up their children on `/notes/`, so `dsa` shows everything under `dsa/...`.
+
+Then:
+
+1. Write the note. Replace the placeholder `description` with a real one-line summary.
+2. Preview at `http://localhost:4321/notes/note-title/` (`pnpm run dev`).
+3. Remove the `draft: true` line to publish. When you revisit a note later, set `modDatetime` — the index sorts by it and the note page shows "last tended".
+
+There's no publish script for notes; `pnpm check-content` catches a published note with a placeholder description, a bad topic, or leftover template text.
+
 ## Drafts & Visibility
 
 | State                          | Dev     | Prod   |
 | ------------------------------ | ------- | ------ |
-| `draft: true` (blog, book, or quote) | visible | hidden |
+| `draft: true` (blog, book, quote, or note) | visible | hidden |
 | No draft flag, past `pubDatetime` | visible | visible |
 | Blog post with future `pubDatetime` | visible | hidden until ~15 min before |
 
