@@ -14,6 +14,10 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  redirects: {
+    // published as a blog post 2026-07-10, converted to a note the next day
+    "/blog/https": "/notes/https",
+  },
   integrations: [
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),

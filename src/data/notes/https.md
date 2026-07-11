@@ -1,14 +1,12 @@
 ---
 title: HTTPS
-pubDatetime: 2026-07-10T13:50:05Z
 description: HTTP from first principles, covering messages, methods, caching, and CORS, capped with the Mail-Order City mental model.
-tags:
-  - Backend
-  - Protocols
-featured: false
+topic: system-design/networking
+pubDatetime: 2026-07-10T13:50:05Z
 ---
 
-This post covers everything I have learned about <abbr title="HyperText Transfer Protocol">HTTP</abbr> so far. It is a living post; it will grow as I learn new concepts. The first half is the formal treatment, and the second half is the mental model I actually think in.
+
+This note covers everything I have learned about <abbr title="HyperText Transfer Protocol">HTTP</abbr> so far. It is a living note; it will grow as I learn new concepts. The first half is the formal treatment, and the second half is the mental model I actually think in.
 
 ## Table of Contents
 
