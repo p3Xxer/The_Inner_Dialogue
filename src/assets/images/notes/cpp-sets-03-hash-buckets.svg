@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 -4 919.5200000000001 355.5" font-family="'iA Writer Mono', 'SF Mono', Menlo, Consolas, monospace">
+<rect x="16" y="-4" width="919.5200000000001" height="355.5" fill="#ffffff"/>
+<text x="40" y="40" font-size="20" fill="#1e1e1e">unordered_set — bucket array + chains</text>
+<rect x="40" y="80" width="130" height="55" rx="12" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="69.16" y="106" font-size="16" fill="#1e1e1e">hash(42)</text>
+<text x="78.12" y="124" font-size="12" fill="#868e96">then % 6</text>
+<text x="40" y="173" font-size="13" fill="#868e96">steps 1+2: pure arithmetic, O(1)</text>
+<text x="260" y="74" font-size="14" fill="#868e96">bucket array (contiguous)</text>
+<rect x="260" y="85" width="75" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="289.16" y="114" font-size="14" fill="#1e1e1e">b0</text>
+<rect x="335" y="85" width="75" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="364.16" y="114" font-size="14" fill="#1e1e1e">b1</text>
+<rect x="410" y="85" width="75" height="50" rx="12" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="439.16" y="114" font-size="14" fill="#1e1e1e">b2</text>
+<rect x="485" y="85" width="75" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="514.16" y="114" font-size="14" fill="#1e1e1e">b3</text>
+<rect x="560" y="85" width="75" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="589.16" y="114" font-size="14" fill="#1e1e1e">b4</text>
+<rect x="635" y="85" width="75" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="664.16" y="114" font-size="14" fill="#1e1e1e">b5</text>
+<path d="M 170 107 L 255 107" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 255 107 L 244.18837358517098 112.2066048694107" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 255 107 L 244.18837358517098 101.7933951305893" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 447 135 L 447 195" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 447 195 L 441.7933951305893 184.18837358517098" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 447 195 L 452.2066048694107 184.18837358517098" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<rect x="392" y="200" width="110" height="50" rx="12" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="436.92" y="233" font-size="18" fill="#1e1e1e">42</text>
+<path d="M 502 225 L 562 225" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 562 225 L 551.188373585171 230.2066048694107" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 562 225 L 551.188373585171 219.7933951305893" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<rect x="567" y="200" width="110" height="50" rx="12" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="606.88" y="233" font-size="18" fill="#1e1e1e">108</text>
+<text x="300" y="294" font-size="14" fill="#868e96">step 3: walk the chain, compare with ==   (the ONLY step that depends on data)</text>
+<text x="300" y="324" font-size="14" fill="#868e96">42 and 108 collided — normal, expected. The hash filters; == is the verdict.</text>
+</svg>

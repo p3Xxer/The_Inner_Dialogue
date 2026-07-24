@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 -4 816.1600000000001 575.5" font-family="'iA Writer Mono', 'SF Mono', Menlo, Consolas, monospace">
+<rect x="16" y="-4" width="816.1600000000001" height="575.5" fill="#ffffff"/>
+<text x="40" y="40" font-size="20" fill="#1e1e1e">s.lower_bound(25) on {10, 20, 30, 40} — the descent that remembers</text>
+<rect x="315" y="105" width="90" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="349.92" y="136" font-size="18" fill="#1e1e1e">20</text>
+<rect x="185" y="245" width="90" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="219.92" y="276" font-size="18" fill="#1e1e1e">10</text>
+<rect x="445" y="245" width="90" height="50" rx="12" fill="#ffec99" stroke="#1e1e1e" stroke-width="2"/>
+<text x="479.92" y="276" font-size="18" fill="#1e1e1e">30</text>
+<rect x="545" y="375" width="90" height="50" rx="12" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="579.92" y="406" font-size="18" fill="#1e1e1e">40</text>
+<path d="M 335 155 L 255 245" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 255 245 L 258.2913886308495 233.46020966911814" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 255 245 L 266.07431862705204 240.3783696657426" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 385 155 L 465 245" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 465 245 L 453.92568137294796 240.3783696657426" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 465 245 L 461.7086113691505 233.46020966911814" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 515 295 L 565 375" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 565 375 L 554.8546573615454 368.5912541984914" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 565 375 L 563.6850415593151 363.0722640748853" fill="none" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M 465 295 L 400 375" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-dasharray="8 6" stroke-linecap="round"/>
+<path d="M 400 375 L 402.77681295024456 363.32569874299304" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<path d="M 400 375 L 410.85865081469086 369.89219200785567" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+<rect x="345" y="380" width="110" height="45" rx="11.25" fill="none" stroke="#1e1e1e" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="382.08" y="408" font-size="16" fill="#868e96">null</text>
+<text x="40" y="125" font-size="15" fill="#1e1e1e">step 1:  20 &lt; 25</text>
+<text x="40" y="146" font-size="14" fill="#868e96">→ left subtree useless,</text>
+<text x="40" y="166" font-size="14" fill="#868e96">   go RIGHT</text>
+<text x="620" y="265" font-size="15" fill="#1e1e1e">step 2:  30 ≥ 25</text>
+<text x="620" y="286" font-size="14" fill="#e8590c">→ CANDIDATE: best = 30</text>
+<text x="620" y="306" font-size="14" fill="#868e96">→ still go LEFT to look</text>
+<text x="620" y="326" font-size="14" fill="#868e96">   for something smaller</text>
+<text x="300" y="460" font-size="15" fill="#1e1e1e">step 3: probe hits null → descent ends</text>
+<text x="300" y="486" font-size="16" fill="#e8590c">return best → 30</text>
+<text x="40" y="544" font-size="14" fill="#868e96">one root-to-leaf walk, one remembered pointer — O(log n), no backtracking</text>
+</svg>

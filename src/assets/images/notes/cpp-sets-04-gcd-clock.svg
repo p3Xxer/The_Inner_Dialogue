@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 -4 667.36 595.5" font-family="'iA Writer Mono', 'SF Mono', Menlo, Consolas, monospace">
+<rect x="16" y="-4" width="667.36" height="595.5" fill="#ffffff"/>
+<text x="40" y="40" font-size="20" fill="#1e1e1e">keys 8, 16, 24, 32 — stride d = 8</text>
+<text x="40" y="86" font-size="16" fill="#e03131">B = 8 (power of two):  gcd(8,8) = 8  →  8/8 = 1 bucket used</text>
+<rect x="40" y="100" width="70" height="45" rx="11.25" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="67.72" y="125" font-size="13" fill="#1e1e1e">b0</text>
+<rect x="110" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="137.72" y="125" font-size="13" fill="#1e1e1e">b1</text>
+<rect x="180" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="207.72" y="125" font-size="13" fill="#1e1e1e">b2</text>
+<rect x="250" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="277.72" y="125" font-size="13" fill="#1e1e1e">b3</text>
+<rect x="320" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="347.72" y="125" font-size="13" fill="#1e1e1e">b4</text>
+<rect x="390" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="417.72" y="125" font-size="13" fill="#1e1e1e">b5</text>
+<rect x="460" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="487.72" y="125" font-size="13" fill="#1e1e1e">b6</text>
+<rect x="530" y="100" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="557.72" y="125" font-size="13" fill="#1e1e1e">b7</text>
+<rect x="40" y="155" width="70" height="36" rx="9" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="71.08" y="177" font-size="14" fill="#1e1e1e">8</text>
+<rect x="40" y="197" width="70" height="36" rx="9" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="67.16" y="219" font-size="14" fill="#1e1e1e">16</text>
+<rect x="40" y="239" width="70" height="36" rx="9" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="67.16" y="261" font-size="14" fill="#1e1e1e">24</text>
+<rect x="40" y="281" width="70" height="36" rx="9" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="67.16" y="303" font-size="14" fill="#1e1e1e">32</text>
+<text x="140" y="194" font-size="14" fill="#868e96">x % 8 keeps only the low 3 bits;</text>
+<text x="140" y="214" font-size="14" fill="#868e96">every key here ends in 000</text>
+<text x="140" y="244" font-size="14" fill="#e03131">one chain, everything collides</text>
+<text x="40" y="386" font-size="16" fill="#2f9e44">B = 7 (prime):  gcd(8,7) = 1  →  7/1 = 7 buckets reachable</text>
+<rect x="40" y="400" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="67.72" y="425" font-size="13" fill="#1e1e1e">b0</text>
+<rect x="110" y="400" width="70" height="45" rx="11.25" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="137.72" y="425" font-size="13" fill="#1e1e1e">b1</text>
+<rect x="180" y="400" width="70" height="45" rx="11.25" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="207.72" y="425" font-size="13" fill="#1e1e1e">b2</text>
+<rect x="250" y="400" width="70" height="45" rx="11.25" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="277.72" y="425" font-size="13" fill="#1e1e1e">b3</text>
+<rect x="320" y="400" width="70" height="45" rx="11.25" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="347.72" y="425" font-size="13" fill="#1e1e1e">b4</text>
+<rect x="390" y="400" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="417.72" y="425" font-size="13" fill="#1e1e1e">b5</text>
+<rect x="460" y="400" width="70" height="45" rx="11.25" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+<text x="487.72" y="425" font-size="13" fill="#1e1e1e">b6</text>
+<rect x="110" y="455" width="70" height="36" rx="9" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="141.08" y="477" font-size="14" fill="#1e1e1e">8</text>
+<rect x="180" y="455" width="70" height="36" rx="9" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="207.16" y="477" font-size="14" fill="#1e1e1e">16</text>
+<rect x="250" y="455" width="70" height="36" rx="9" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="277.16" y="477" font-size="14" fill="#1e1e1e">24</text>
+<rect x="320" y="455" width="70" height="36" rx="9" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="347.16" y="477" font-size="14" fill="#1e1e1e">32</text>
+<text x="40" y="534" font-size="14" fill="#868e96">stepping 8 on a 7-clock = stepping 1: the keys crawl round and hit every bucket</text>
+<text x="40" y="564" font-size="14" fill="#2f9e44">same keys, same stride — only B changed</text>
+</svg>
