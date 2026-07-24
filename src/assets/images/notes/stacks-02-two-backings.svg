@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 300" role="img" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+<title>Two ways to store a stack</title>
+<desc>On the left, elements sit in one contiguous block of memory with a top marker on the last filled slot. On the right, elements sit in separately allocated blocks scattered across the heap, joined by pointers.</desc>
+<defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<text x="175" y="42" font-size="14" font-weight="500" fill="#444441" text-anchor="middle">Array backed</text>
+
+<rect x="45" y="72" width="52" height="42" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="71" y="93" font-size="14" fill="#085041" text-anchor="middle" dominant-baseline="central">10</text>
+<rect x="97" y="72" width="52" height="42" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="123" y="93" font-size="14" fill="#085041" text-anchor="middle" dominant-baseline="central">20</text>
+<rect x="149" y="72" width="52" height="42" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="175" y="93" font-size="14" fill="#085041" text-anchor="middle" dominant-baseline="central">30</text>
+<rect x="201" y="72" width="52" height="42" rx="4" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="227" y="93" font-size="14" fill="#085041" text-anchor="middle" dominant-baseline="central">40</text>
+<rect x="253" y="72" width="52" height="42" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+<line x1="227" y1="152" x2="227" y2="120" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#a2)"/>
+<text x="227" y="168" font-size="12" fill="#5F5E5A" text-anchor="middle">top</text>
+
+<text x="175" y="212" font-size="12" fill="#5F5E5A" text-anchor="middle">One block, consecutive addresses</text>
+<text x="175" y="232" font-size="12" fill="#5F5E5A" text-anchor="middle">Push writes the next slot</text>
+
+<line x1="350" y1="40" x2="350" y2="260" stroke="#D3D1C7" stroke-width="0.5"/>
+
+<text x="520" y="42" font-size="14" font-weight="500" fill="#444441" text-anchor="middle">Node backed</text>
+
+<text x="398" y="89" font-size="12" fill="#5F5E5A" text-anchor="end" dominant-baseline="central">top</text>
+<line x1="404" y1="89" x2="424" y2="89" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#a2)"/>
+
+<rect x="430" y="72" width="64" height="34" rx="4" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="462" y="89" font-size="14" fill="#712B13" text-anchor="middle" dominant-baseline="central">40</text>
+<rect x="576" y="112" width="64" height="34" rx="4" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="608" y="129" font-size="14" fill="#712B13" text-anchor="middle" dominant-baseline="central">30</text>
+<rect x="440" y="158" width="64" height="34" rx="4" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="472" y="175" font-size="14" fill="#712B13" text-anchor="middle" dominant-baseline="central">20</text>
+<rect x="566" y="200" width="64" height="34" rx="4" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="598" y="217" font-size="14" fill="#712B13" text-anchor="middle" dominant-baseline="central">10</text>
+
+<line x1="498" y1="95" x2="570" y2="118" stroke="#888780" stroke-width="1" marker-end="url(#a2)"/>
+<line x1="576" y1="136" x2="510" y2="162" stroke="#888780" stroke-width="1" marker-end="url(#a2)"/>
+<line x1="504" y1="182" x2="562" y2="203" stroke="#888780" stroke-width="1" marker-end="url(#a2)"/>
+
+<text x="520" y="266" font-size="12" fill="#5F5E5A" text-anchor="middle">Separate blocks joined by pointers</text>
+</svg>
